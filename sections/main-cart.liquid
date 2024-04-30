@@ -1,0 +1,810 @@
+{%- capture section_settings -%}
+{
+  "showShippingEstimator": {% if cart.item_count == 0 %}false{% else %}{{ section.settings.show_shipping_estimator | json }}{% endif %}
+}
+{%- endcapture -%}
+
+<section data-section-id="{{ section.id }}" data-section-type="cart" data-section-settings='{{ section_settings }}' data-item-count="{{ cart.item_count }}">
+  {%- if cart.item_count == 0 -%}
+    <div class="container">
+      <div class="empty-state">
+        <div class="empty-state__icon">
+          {%- render 'icon', icon: 'big-cart' -%}
+        </div>
+
+        <p class="empty-state__heading heading h1">{{ 'cart.general.empty' | t }}</p>
+
+        {%- if settings.cart_show_free_shipping_threshold -%}
+          {%- assign threshold_in_cents = settings.cart_free_shipping_threshold | times: 100 -%}
+          {%- capture remaining_amount -%}<span>{{ cart.total_price | minus: threshold_in_cents | abs | money }}</span>{%- endcapture -%}
+          <p class="empty-state__description">{{ 'cart.general.free_shipping_remaining_html' | t: remaining_amount: remaining_amount }}</p>
+        {%- endif -%}
+
+        <div class="empty-state__button-container">
+          <a href="{{ settings.cart_empty_button_link | default: routes.root_url }}" class="empty-state__button button button--primary">{{ 'cart.general.empty_button' | t }}</a>
+        </div>
+      </div>
+    </div>
+  {%- else -%}
+
+    {% assign discount_percentage = 15 %}
+
+    <div class="fkw-container fkw-cart ws-dark">
+      <div class="fkw-row fkw-mb-20">
+        <div class="fkw-col-8 fkw-offset-2">
+          <div class="card fkw-mb-0">
+            <div class="card__header">
+              <h3 class="card__title heading h3 fkw-mb-0">Cart Summary <span class="rental-only">- Rental Option</span><span class="purchase-only">- Buy Outright</span></h3>
+            </div>
+            <div class="card__section  fkw-pr-0 fkw-pl-0">
+              {%- for line_item in cart.items -%}
+                {% assign discount_amount = line_item.final_line_price | times: discount_percentage | divided_by: 100 %}
+                {% assign discounted_price = line_item.final_line_price | minus: discount_amount %}
+
+                {% comment %} Calcualte Finance {% endcomment %}
+                {% assign rwm = 0.0545 %}
+                {% assign rwd = 4.33 %}
+                {% assign rdp = 10 %}
+                {% assign rbp = 60 %}
+                {% assign price = line_item.final_line_price | times: 1.0 %}
+                {% assign weekly = price | times: rwm | divided_by: rwd %}
+                {% assign deposit = price | times: rdp | divided_by: 100.0 %}
+                {% assign buyout = price | times: rbp | divided_by: 100.0 %}
+
+                {% assign weekly_discounted = discounted_price | times: rwm | divided_by: rwd %}
+                {% assign deposit_discounted = discounted_price | times: rdp | divided_by: 100.0 %}
+                {% assign buyout_discounted = discounted_price | times: rbp | divided_by: 100.0 %}
+                <div class="fkw-row cart_item fkw-mb-15">
+                  <div class="fkw-col fkw-col-3 fkw-align-items-center" >
+                    <div class="cart_item__image">
+                      <img src="{{ line_item.image | img_url: '180x' }}" alt="{{ line_item.image.alt | escape }}">
+                    </div>
+                    <div class="line-item__quantity fkw-align-center">
+                      {%- unless line_item.product.tags contains '__gift' -%}
+                        <div class="quantity-selector fkw-mt-10">
+                          {%- assign allow_to_add_more = true -%}
+  
+                          {%- if line_item.variant.inventory_management and line_item.variant.inventory_policy == 'deny' and line_item.quantity == line_item.variant.inventory_quantity -%}
+                            {%- assign allow_to_add_more = false -%}
+                          {%- endif -%}
+  
+                          <button type="button" class="quantity-selector__button" data-action="decrease-quantity" data-href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | minus: 1 }}&line={{ forloop.index }}" data-quantity="{{ line_item.quantity | minus: 1 }}" data-line="{{ forloop.index }}" aria-label="{{ 'cart.items.decrease_quantity' | t }}" title="{{ 'cart.items.decrease_quantity' | t }}">{% render 'icon', icon: 'minus' %}</button>
+                          <input aria-label="{{ 'product.form.quantity' | t }}" class="quantity-selector__value" inputmode="numeric" data-current-value="{{ line_item.quantity }}" data-line="{{ forloop.index }}" value="{{ line_item.quantity }}" size="{{ line_item.quantity | append: '' | size | at_least: 2 }}">
+                          <button type="button" class="quantity-selector__button" data-action="increase-quantity" data-href="{{ routes.cart_change_url }}?quantity={{ line_item.quantity | plus: 1 }}&line={{ forloop.index }}" data-quantity="{{ line_item.quantity | plus: 1 }}" data-line="{{ forloop.index }}" {% if allow_to_add_more %}aria-label="{{ 'cart.items.increase_quantity' | t }}" title="{{ 'cart.items.increase_quantity' | t }}"{% else %}disabled="disabled" aria-label="{{ 'cart.items.no_more_stock' | t }}" data-tooltip="{{ 'cart.items.no_more_stock' | t }}" data-tooltip-position="bottom-left"{% endif %}>{% render 'icon', icon: 'plus' %}</button>
+                        </div>
+                      {%- else -%}
+                        <span>{{ line_item.quantity }}</span>
+                      {% endunless -%}
+                    </div>
+                  </div>
+                  <div class="fkw-col fkw-col-9 fkw-pr-40">
+                    <div class="cart_item__title">
+                      <a href="{{ line_item.url }}" class="link text--strong">{{ line_item.title }}</a>
+                    </div>
+                    <div class="product-meta__reference">
+                      <span class="fk-p-label">Brand:</span> <a class="product-meta__vendor link link--accented" href="{{ product.vendor | url_for_vendor | downcase }}">{{ product.vendor }}</a>
+                      <span class="product-meta__sku">
+                        <span class="fk-p-label">SKU:</span>
+                        <span class="product-meta__sku-number">{{ line_item.sku | split: ':' | first }}</span>
+                      </span>
+                    </div>
+                    <div class="product-form__info-list allow-wrap wholesale-pricing">
+                      {% comment %} <div class="product-form__info-item full-width" style="border-bottom: solid 1px #FFFFFF;padding-bottom: 5px;margin-bottom: 5px;">
+                        <span class="product-form__info-title text--strong is-red">YOUR PRICE: (LESS XX% WHOLESALE DISCOUNT)</span>
+                        <span></span>
+                      </div> {% endcomment %}
+                      <div class="product-form__info-item rental-only-opac" onclick="window._fk.updatePaymentOption('flexirent', document.querySelector('#po-flexirent'));window._fk.toggleFlexiownForm('rental')">
+                        <span class="product-form__info-title text--strong is-red">RENTAL:</span>
+                        <div class="product-form__info-content" role="region" aria-live="polite">
+                          <div class="price-list">
+                            <span class="price">
+                              <strong>{{ weekly | divided_by: 7 | money }}</strong>
+                              <small>PER DAY EX-GST</small>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="product-form__info-item purchase-only-opac" onclick="window._fk.updatePaymentOption('credit-card', document.querySelector('#po-credit-card'));window._fk.toggleFlexiownForm('purchase')">
+                        <span class="product-form__info-title text--strong is-red">BUY OUTRIGHT:</span>
+                        <div class="product-form__info-content" role="region" aria-live="polite">
+                          <div class="price-list">
+                            <span class="price">
+                              <strong>{{ line_item.final_line_price | money }}</strong>
+                              <small>EX-GST</small>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+            
+            <div class="card__section " id="flexiown-scroll">
+              <div class="fkw-row">
+                <div class="fkw-col fkw-col-3">&nbsp;</div>
+                <div class="fkw-col fkw-col-9">
+                  {% assign rwm = 0.0545 %}
+                  {% assign rwd = 4.33 %}
+                  {% assign rdp = 10 %}
+                  {% assign rbp = 60 %}
+                  {% assign total_rental = 0 %}
+                  {% assign total_discount = 0 %}
+                  {% assign deposit = cart.total_price | times: 1.0 | times: 0.1 %}
+                  {%- for line_item in cart.items -%}
+                    {% assign price = line_item.final_line_price | times: 1.0 %}
+                    {% assign weekly = price | times: rwm | divided_by: rwd %}
+                    {% assign total_rental = total_rental | plus: weekly %}
+                    {%- if line_item.final_line_price < line_item.original_line_price -%}
+                      {%- assign total_discount = total_discount | plus: line_item.total_discount -%}
+                    {%- elsif line_item.variant.compare_at_price > line_item.variant.price -%}
+                      {%- assign line_discount = line_item.variant.compare_at_price | minus: line_item.variant.price | times: line_item.quantity -%}
+                      {%- assign total_discount = total_discount | plus: line_discount -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  <div class="fkw-cart-totals">
+                    <div class="fkw-cart-totals-holder purchase-only-total">
+                      <div class="cart-recap__total text--strong fkw-mb-10 ">
+                        <span>Total Purchase Price</span>
+                        <span>
+                          {{ cart.total_price | money }}
+                          {%- if total_discount > 0 -%}
+                            <small>You saved {{ total_discount | money }}</small>
+                          {%- endif -%}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="fkw-cart-totals-holder rental-only-total">
+                      <div class="cart-recap__total text--strong fkw-mb-5">
+                        <span>Total Rental</span>
+                        <span>
+                          {{ total_rental | divided_by: 7 | money }} per day
+                        </span>
+                      </div>
+                      <div class="cart-recap__total text--small fkw-mb-5">
+                        <span>Year 1 Buyout</span>
+                        <span>
+                          {{ cart.total_price | times: 0.6 | money }}
+                        </span>
+                      </div>
+                      <div class="cart-recap__total text--small fkw-mb-5">
+                        <span>Deposit</span>
+                        <span>
+                          {{ deposit | money }}
+                        </span>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Options Section -->
+            <div class="card__section">
+              <div class="card__section-content ">
+                <small style="margin-bottom:10px;">PAYMENT OPTIONS</small>
+                <img src="{{ 'flexi-payment-options.png' | asset_url }}" width="250" height="auto">
+              </div>
+              <div class="card__section-content">
+                <button id="po-flexirent" class="payment-option-button selected" data-option="flexirent">Rent with Flexirent</button>
+                <button id="po-credit-card" class="payment-option-button" data-option="credit-card">Purchase via Credit Card</button>
+                {% comment %} IF WHOLESALE {% endcomment %}
+                <button id="po-charge-through-purchase" class="payment-option-button" data-option="charge-through-purchase">Purchase through Charge Through</button>
+                <button id="po-charge-through-rent" class="payment-option-button" data-option="charge-through-rent">Rent via Charge Through</button>
+                {% comment %} END IF WHOLESALE {% endcomment %}
+              </div>
+              <div id="flexirent-credit-card" class="card__section-content" style="display:none;">
+                <form method="post" action="{{ routes.cart_url }}" novalidate="novalidate" data-item-count="{{ cart.item_count }}">
+                  <input type="hidden" name="attributes[collection_products_per_page]" value="">
+                  <input type="hidden" name="attributes[collection_layout]" value="">
+                  <button type="submit" name="checkout" class="cart-recap__checkout button button--primary button--full button--large">
+                    Checkout <i class="bi bi-arrow-right"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <!-- Shipping Section -->
+            <div id="dynamic-shipping-section"  class="collapsible-section open" style="display:none!important;">
+              <div class="collapsible-header">
+                Shipping
+              </div>
+              <div class="collapsible-content" style="display:flex;">
+                <div class="cc-input-holder">
+                  <label for="postal-code">Delivery Post Code</label>
+                  <span class="cc-icon">
+                    <img src="{{ 'fa-solid-building.png' | asset_url }}" width="auto" height="auto">
+                  </span>
+                  <input type="text" id="postal-code" class="cc-input"  required>
+                </div>
+                <button class="button" onclick="estimateShipping()">Estimate shipping</button>
+                <div id="shipping-rates"></div>
+              </div>
+            </div>
+            <script>
+              function getAustralianStateFromPostalCode(postalCode) {
+                const pc = parseInt(postalCode, 10);
+                if (pc >= 1000 && pc <= 2599) return 'NSW';
+                if (pc >= 2600 && pc <= 2619 || pc >= 2900 && pc <= 2920) return 'ACT';
+                if (pc >= 3000 && pc <= 3999) return 'VIC';
+                if (pc >= 4000 && pc <= 4999) return 'QLD';
+                if (pc >= 5000 && pc <= 5799) return 'SA';
+                if (pc >= 6000 && pc <= 6797) return 'WA';
+                if (pc >= 7000 && pc <= 7799) return 'TAS';
+                if (pc >= 800 && pc <= 899 || pc >= 900 && pc <= 999) return 'NT';
+                return '';
+              }
+              function estimateShipping() {
+                var postalCode = document.getElementById("postal-code").value.trim();
+                var state = getAustralianStateFromPostalCode(postalCode);
+            
+                var formData = new FormData();
+                formData.append("shipping_address[zip]", postalCode);
+                formData.append("shipping_address[country]", "AU");
+                formData.append("shipping_address[province]", state); // Adding the state
+            
+                fetch("/cart/shipping_rates", {
+                  method: "POST",
+                  body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                  var shippingRatesDiv = document.getElementById("shipping-rates");
+                  shippingRatesDiv.innerHTML = ""; // Clear previous results
+                  if(data.shipping_rates && data.shipping_rates.length > 0) {
+                    data.shipping_rates.forEach(rate => {
+                      shippingRatesDiv.innerHTML += `<div>${rate.name} - ${rate.price}</div>`;
+                    });
+                  } else {
+                    shippingRatesDiv.innerHTML = "No shipping rates available. Please check your postal code or try again later.";
+                  }
+                })
+                .catch(error => {
+                  console.error("Error estimating shipping:", error);
+                });
+              }
+            </script>
+
+            <!-- Dynamic Section Placeholder -->
+            <div id="dynamic-payment-section" class="collapsible-section open" >
+              <div class="collapsible-header">
+                Rent with Flexirent
+              </div>
+              <div class="collapsible-content" style="display:flex;">
+                {% comment %} RENTAL {% endcomment %}
+                <div id="flexirent-content" class="payment-option-content" style="display:none;">
+                  <form method="post" action="/contact" class="fkw-form" id="flexirent_form">
+                    <input type="hidden" name="in_cart" value="">
+                    <input type="hidden" name="purchase_type" value="flexirent">
+                    <div class="cc-input-holder">
+                      <label for="email">Email Address</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-envelope-fill"></i>
+                      </span>
+                      <input type="email" name="email" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="contact">Contact Number</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-telephone-fill"></i>
+                      </span>
+                      <input type="tel" name="contact" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="first-name">First Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input type="text" name="first-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="last-name">Last Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input type="text" name="last-name" class="cc-input" required>
+                    </div>`
+                    <div class="cc-input-holder">
+                      <label for="business-name">Business Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-building"></i>
+                      </span>
+                      <input type="text" name="business-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="business-address">Business Address</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                      </span>
+                      <input type="text" name="business-address" class="cc-input" required>
+                    </div>
+                    <div class="fkw-form-group is-row fkw-justify-content-center fkw-mt-10">
+                      <button type="submit" class="fkw-btn fkw-btn-primary">Submit <i class="bi bi-arrow-right"></i></button>
+                    </div>
+                  </form>
+                  
+                </div>                
+                {% comment %} WHOLESALE CHARGE THROUGH{% endcomment %}
+                <div id="charge-through-purchase-content" class="payment-option-content" style="display:none;">
+                  <form method="post" action="/contact" class="fkw-form" id="charge-through-purchase_form">
+                    <input type="hidden" name="in_cart" value="">
+                    <input type="hidden" name="purchase_type" value="charge-through-purchase">
+                    <div class="cc-input-holder">
+                      <label for="email">Email Address</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-envelope-fill"></i>
+                      </span>
+                      <input type="email" name="email" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="contact">Contact Number</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-telephone-fill"></i>
+                      </span>
+                      <input type="tel" name="contact" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="first-name">First Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input type="text" name="first-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="last-name">Last Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input type="text" name="last-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="business-name">Business Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-building"></i>
+                      </span>
+                      <input type="text" name="business-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="business-address">Business Address</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                      </span>
+                      <input type="text" name="business-address" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="store-id">Store ID</label>
+                      <input type="text" name="store-id" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="buy-through-id">Buy Through ID</label>
+                      <input type="text" name="buy-through-id" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder align-left">
+                      <label class="fkw-checkbox">
+                        <input type="checkbox" name="authorize_confirmed" required />
+                        <span class="checkmark"></span>
+                        <span>I authorize Flexikitch...</span>
+                      </label>
+                    </div>
+                    <div class="fkw-form-group is-row fkw-justify-content-center fkw-mt-10">
+                      <button type="submit" class="fkw-btn fkw-btn-primary">Submit <i class="bi bi-arrow-right"></i></button>
+                    </div>
+                  </form>
+                </div>
+                {% comment %} WHOLESALE RENT {% endcomment %}
+                <div id="charge-through-rent-content" class="payment-option-content" style="display:none;">
+                  <form method="post" action="/contact" class="fkw-form" id="charge-through-rent_form">
+                    <input type="hidden" name="in_cart" value="">
+                    <input type="hidden" name="purchase_type" value="charge-through-rent">
+                    <div class="cc-input-holder">
+                      <label for="email">Email Address</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-envelope-fill"></i>
+                      </span>
+                      <input type="email" name="email" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="contact">Contact Number</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-telephone-fill"></i>
+                      </span>
+                      <input type="tel" name="contact" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="first-name">First Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input type="text" name="first-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="last-name">Last Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-person-fill"></i>
+                      </span>
+                      <input type="text" name="last-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="business-name">Business Name</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-building"></i>
+                      </span>
+                      <input type="text" name="business-name" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="business-address">Business Address</label>
+                      <span class="cc-icon">
+                        <i class="bi bi-geo-alt-fill"></i>
+                      </span>
+                      <input type="text" name="business-address" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="store-id">Store ID</label>
+                      <input type="text" name="store-id" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder">
+                      <label for="buy-through-id">Buy Through ID</label>
+                      <input type="text" name="buy-through-id" class="cc-input" required>
+                    </div>
+                    <div class="cc-input-holder align-left">
+                      <label class="fkw-checkbox">
+                        <input type="checkbox" name="authorize_confirmed" required />
+                        <span class="checkmark"></span>
+                        <span>I authorize Flexikitch...</span>
+                      </label>
+                    </div>
+                    <div class="fkw-form-group is-row fkw-justify-content-center fkw-mt-10">
+                      <button type="submit" class="fkw-btn fkw-btn-primary">Submit <i class="bi bi-arrow-right"></i></button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="card__section " style="display:none">
+              <div class="fkw-row">
+                <div class="fkw-col fkw-col-4 fkw-pb-0 fkw-justify-content-center">
+                  <form method="post" action="{{ routes.cart_url }}" novalidate="novalidate" data-item-count="{{ cart.item_count }}">
+                    <input type="hidden" name="attributes[collection_products_per_page]" value="">
+                    <input type="hidden" name="attributes[collection_layout]" value="">
+                    <button type="submit" name="checkout" class="cart-recap__checkout button button--primary button--full button--large">
+                      Checkout <i class="bi bi-arrow-right"></i>
+                    </button>
+                  </form>
+                </div>
+                <div class="fkw-col fkw-col-8 fkw-align-items-end fkw-justify-content-center fkw-pb-0">
+                  <label class="fkw-checkbox">
+                    <span>{% if customer and customer.tags contains "wholesale" %}Use Charge Through{% else %}Rent these Products{% endif %}</span>
+                    <input type="checkbox" id="charge_through" name="charge_through" />
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="fkw-checkbox" style="display:none">
+                    I authorize Flexikitch... (???)
+                    <input type="checkbox" id="auth_fk" name="auth_fk" />
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div id="flexiown-form"  class="card__section ">
+              <div class="fkw-row">
+                <div class="fkw-col-8 fkw-offset-2">
+                  <h3 style="text-align: center;font-size: 16px;margin-top: 20px;">Please Complete the Rental Request Form</h3>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  {%- endif -%}
+</section>
+<script>
+  window.addEventListener('load', function() {
+    try{
+      var chargeThroughCheckbox = document.getElementById('charge_through');
+      var urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('show') === 'rental') {
+        chargeThroughCheckbox.checked = true;
+      }
+      console.log('window._fk', window._fk)
+      window._fk.toggleFlexiownForm('rental');
+      window._fk.initCollapsibleSections();
+      window._fk.initFormSubmissions();
+      window._fk.initPaymentOptionButtons();
+      window._fk.updatePaymentOption('flexirent', document.querySelector('#po-flexirent'));
+
+      window._fk.initCustomerDetails(
+        '{{ customer.email }}',
+        '{{ customer.first_name }}',
+        '{{ customer.last_name }}',
+        '{{ customer.phone }}',
+      )
+    }catch(e){
+      console.log(e);
+    }
+  });
+</script>
+
+
+
+{% schema %}
+{
+  "name": "Cart",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Those settings are only applicable when the cart contains at least one product."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_order_notes",
+      "label": "Enable order notes",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Gift wrap"
+    },
+    {
+      "type": "paragraph",
+      "content": "Gift wrap needs to be set up as a product. [Read more](https://support.maestrooo.com/article/190-cart-set-up-a-gift-wrap-product)"
+    },
+    {
+      "type": "product",
+      "id": "gift_wrap_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_text",
+      "label": "Text",
+      "default": "Do you want a gift wrap?"
+    },
+    {
+      "type": "text",
+      "id": "gift_wrap_button",
+      "label": "Button",
+      "default": "Add a gift wrap"
+    },
+    {
+      "type": "header",
+      "content": "Shipping estimator"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shipping_estimator",
+      "label": "Show shipping rates calculator",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_estimator_default_country",
+      "label": "Default country",
+      "info": "If the customer is logged in, the country of their shipping address will be used.",
+      "default": "United States"
+    },
+    {
+      "type": "text",
+      "id": "trust_heading",
+      "label": "Heading",
+      "default": "Our guarantees"
+    },
+    {
+      "type": "header",
+      "content": "Upsell"
+    },
+    {
+      "type": "paragraph",
+      "content": "Show additional products to encourage customers to buy more."
+    },
+    {
+      "type": "text",
+      "id": "upsell_heading",
+      "label": "Heading",
+      "default": "Complete your cart"
+    },
+    {
+      "type": "collection",
+      "id": "upsell_collection",
+      "label": "Collection",
+      "info": "Products already in cart or sold out will be hidden."
+    },
+    {
+      "type": "range",
+      "id": "upsell_products_count",
+      "label": "Products to show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 4
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Trust text",
+      "type": "trust",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-customer-support"
+        },
+        {
+          "type": "image_picker",
+          "id": "custom_icon",
+          "label": "Custom icon",
+          "info": "60 x 60px .png with transparency recommended"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Short content about your store</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,151 @@
+<section class="section specs-section" data-section-id="{{ section.id }}" data-section-type="html">
+    <div class="container container--flush">  
+        <div class="page-split">
+            <div class="ps-half">
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title heading h3">{{ section.settings.spec_title | escape }}</h3>
+                    </div>
+                    <div class="card__section card__section--tight">
+                        <div class="product-specs">
+                            {% if product.metafields.specifications.dimension != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Dimension WxDxH (mm)</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.specifications.dimension }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if product.metafields.specifications.manufactured_in != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Manufactured In</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.specifications.manufactured_in }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            
+                            {% if product.metafields.other.power_requirement != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Power Requirement</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.other.power_requirement }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            {% if product.metafields.specifications.litres_storage != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Litres Storage</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.specifications.litres_storage }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            {% if product.metafields.specifications.capacity_and_production != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Capacity and Production</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.specifications.capacity_and_production }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ps-half">
+                <div class="card">
+                    <div class="card__header">
+                        <h3 class="card__title heading h3">{{ section.settings.warranty_title | escape }}</h3>
+                    </div>
+                    <div class="card__section card__section--tight">
+                        <div class="product-specs">
+                            <div class="product-spec">
+                                <div class="ps-desc">After hours call out option</div>
+                                <div class="ps-value">
+                                    {% if product.metafields.warranty.after_hours_callout_option %}Yes{% else %}No{% endif %}
+                                </div>
+                            </div>
+                            <div class="product-spec">
+                                <div class="ps-desc">Extended warranty available</div>
+                                <div class="ps-value">
+                                    {% if product.metafields.warranty.extended_warranty_available %}Yes{% else %}No{% endif %}
+                                </div>
+                            </div>
+                            {% if product.metafields.warranty.manufactured_warranty_period != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Manufactures warranty period</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.warranty.manufactured_warranty_period }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if product.metafields.warranty.onsite_or_btb_warranty != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Onsite or back to base warranty</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.warranty.onsite_or_btb_warranty }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if product.metafields.warranty.warranty_contact != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Warranty contact</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.warranty.warranty_contact }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if product.metafields.specifications.dimension != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Dimension WxDxH (mm)</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.specifications.dimension }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                            {% if product.metafields.specifications.manufactured_in != blank %}
+                                <div class="product-spec">
+                                    <div class="ps-desc">Manufactured In</div>
+                                    <div class="ps-value">
+                                        {{ product.metafields.specifications.manufactured_in }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+"name": "FK - Specs & Warranty",
+"settings": [
+    {
+        "type": "text",
+        "id": "spec_title",
+        "label": "Specifications Heading",
+        "default": "Specifications"
+    },
+    {
+        "type": "text",
+        "id": "warranty_title",
+        "label": "Warranty Heading",
+        "default": "Warranty"
+    }
+],
+"presets": [
+    {
+        "category": "Flexikitch",
+        "name": "FK - Specs & Warranty"
+    }
+]
+}
+{% endschema %}

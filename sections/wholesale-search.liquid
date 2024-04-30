@@ -1,0 +1,123 @@
+{% schema %}
+{
+  "name": "Wholesale Search",
+  "settings": [
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search Placeholder Text",
+      "default": "Search Discounted Metcash Products ..."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "text",
+          "id": "collection_name",
+          "label": "Collection Name",
+          "default": "Collection"
+        },
+        {
+          "type": "collection",
+          "id": "collection_id",
+          "label": "Select a Collection"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Wholesale Search"
+    }
+  ]
+}
+{% endschema %}
+
+
+<div class="fkw-container fkw-pb-0" style="display:none">
+  <div class="fkw-row fkw-justify-content-center">
+    <div class="fkw-col-12 fkw-pb-0">
+      <div class="fkw-search-section">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="{{ section.settings.search_placeholder }}" aria-label="Search" class="fkw-search-input">
+        <select id="category-select" aria-label="Select Category" class="fkw-search-select">
+          <option value="" disabled selected>Select Category</option>
+          {% for block in section.blocks %}
+            <option value="{{ block.settings.collection_id | default: '#' }}">{{ block.settings.collection_name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('.fkw-search-input');
+    const categorySelect = document.querySelector('.fkw-search-select');
+  
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const searchQuery = encodeURIComponent(searchInput.value.trim());
+        const selectedCollection = categorySelect.value;
+        const baseUrl = 'https://flexikitch.com.au/search';
+        // Check if a category is selected
+        const queryString = `type=product&q=${searchQuery}${selectedCollection ? `&filter=(collectionid:${selectedCollection})` : ''}`;
+        window.location.href = `${baseUrl}?${queryString}`;
+      }
+    });
+  
+    // Listen for changes on the category select
+    categorySelect.addEventListener('change', function() {
+      if (categorySelect.value) {
+        // Redirect to the selected category
+        window.location.href = `/collections/${categorySelect.value}`;
+      }
+    });
+  });
+</script>
+
+<style>
+.fkw-search-section {
+  position: relative;
+  display: flex;
+  gap: 0;
+  padding: 5px;
+  background: #FFF;
+  border-radius: 50px;
+  border: solid 1px #DDD;
+}
+.fkw-search-section .bi-search{
+  position: absolute;
+  left: 15px;
+  top: 8px;
+  font-size: 25px;
+  color: #AAA;
+}
+.fkw-search-input {
+  flex: 1;
+  padding: 0.5rem 0.5rem 0.5rem 50px;
+  border: none;
+  border-radius: 30px 0 0 30px;
+  height: 50px;
+}
+.fkw-search-input::placeholder {
+  color: #AAA;
+}
+.fkw-search-select {
+  width: 200px;
+  padding: 0 20px;
+  border: 1px solid #e1e1e1;
+  border-radius:30px; 
+  color: #fff;
+  background-color: #f55c44;
+  border-color: #f55c44;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+</style>

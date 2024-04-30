@@ -1,0 +1,423 @@
+<link rel="stylesheet" href="{{ 'finance-form.css' | asset_url }}" >
+<script type="application/javascript" src="{{ 'finance-form.js' | asset_url }}"></script>
+
+<h1 class="finance-form">Apply for <span>Finance</span></h1>
+{% if customer %}
+    {%- assign fk_from = customer.metafields.finance_application.form.value -%}
+    {%- assign fk_step = customer.metafields.finance_application.step.value -%}
+    {%- assign finance_submitted = customer.metafields.finance_application.submitted.value -%}
+
+    {% if finance_submitted %}
+    <div id="AccountNeeded">
+        <p>Your application has been submitted. We wil be in contact shortly.</p>
+    </div>
+    {% else %}
+
+    <form id="FinanceForm" data-step="{% if fk_step == blank or fk_step == 1 %}required-documents{% elsif fk_step == 2 %}applicant_details{% elsif fk_step == 3 %}business_details{% elsif fk_step == 4 %}financial-details{% elsif fk_step == 5 %}social-media{% elsif fk_step == 6 %}documentation-authorisation{% endif %}">
+        <div class="finance-form-wrap">
+            <div class="form-progress">
+                <span class="fp-marker" {% if fk_step == blank %}style="width: calc((100% / 7) * 1);"{%else%}style="width: calc((100% / 7) * {{ fk_step }});"{% endif %}></span>
+                <span class="fp-msg">{% if fk_step != blank %}Step {{ fk_step }} of 7{% else %}Step 1 of 7{% endif %}</span>
+            </div>
+            <div class="form-elements">
+                <div id="required-documents" class="ff-section {% if fk_step == blank  or fk_step == 1 %}ff-active{% endif %}">
+                    <h3>
+                        Confirm Required Documents
+                    </h3>
+                    <div class="ff-content">
+                        <p>Please acknowledge before continuing that this application requires <u>every Director / Owner / Partner to upload the following documents</u>:</p>
+                    </div>
+                    <div class="ff-notice">
+                        <h4>
+                            Drivers Licence <strong>AND</strong> Medicare Card
+                            <br><i>OR</i><br>
+                            Key Pass <strong>AND</strong> Utility Bill  <strong>AND</strong> Medicare Card
+                            <br><i>OR</i><br>
+                            Passport <strong>AND</strong> Utility Bill  <strong>AND</strong> Medicare Card
+                    </div>
+                </div>
+                <div id="applicant_details" class="ff-section {% if fk_step == 2 %}ff-active{% endif %}">
+                    <h3>
+                        Applicant Details
+                    </h3>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Full Name *</label>
+                            <input type="text" class="ff-input" name="applicant_details[full_name]" value="{{ fk_from.applicant_details.full_name | default: customer.name }}" required />
+                        </div>
+                        <div class="ff-input-holder">
+                            <label>Phone Number *</label>
+                            <input type="text" class="ff-input" name="applicant_details[phone]" value="{{ fk_from.applicant_details.phone }}" required />
+                        </div>
+                        <div class="ff-input-holder">
+                            <label>Email Address *</label>
+                            <input type="text" class="ff-input" name="applicant_details[email]" value="{{ fk_from.applicant_details.email | default: customer.email }}" required />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>State of Residence *</label>
+                            <select class="ff-input" name="applicant_details[state]" required>
+                                <option value="" selected disabled hidden>-- Choose</option>
+                                <option value="ACT">Australian Capital Territory</option>
+                                <option value="NSW">New South Wales</option>
+                                <option value="NT ">Northern Territory</option>
+                                <option value="QLD">Queensland</option>
+                                <option value="SA ">South Australia</option>
+                                <option value="TAS">Tasmania</option>
+                                <option value="VIC">Victoria</option>
+                                <option value="WA ">Western Australia</option>
+                            </select>
+                        </div>
+                        <script>document.querySelector('select[name="applicant_details[state]"]').value = "{{ fk_from.applicant_details.state }}";</script>
+                        <div class="ff-input-holder">
+                            <label>Have you had any previous hospitality business ownership experience? *</label>
+                            <select class="ff-input" name="applicant_details[hospo_experience]" required>
+                                <option value="" selected disabled hidden>-- Please Choose</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <script>document.querySelector('select[name="applicant_details[hospo_experience]"]').value = "{{ fk_from.applicant_details.hospo_experience }}";</script>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>IF "Yes" - please describe your experience and for how long?</label>
+                            <textarea type="text" class="ff-input" name="applicant_details[hospo_experience_details]" >{{ fk_from.applicant_details.hospo_experience_details }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div id="business_details" class="ff-section {% if fk_step == 3 %}ff-active{% endif %}">
+                    <h3>
+                        Your Business Details
+                    </h3>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>ABN * (must be Validated to continue)</label>
+                            <span class="abn-lookup">
+                                <input id="abn_lookup" type="text" class="ff-input" name="business_details[abn]" value="{{ fk_from.business_details.abn }}" required />
+                                <button type="button" class="val-abn" onclick="ffAbnLookup()">VALIDATE ABN</button>
+                            </span>
+                            <script>
+                                function ffAbnLookup(hide_alert = false){
+                                    document.getElementById('ff-next').setAttribute('disabled', 'disabled')
+                                    let abn = $('#abn_lookup').val()
+                                    document.getElementsByClassName('val-abn')[0].setAttribute('disabled', 'disabled')
+                                    document.getElementById('abn_lookup').classList.remove('valid')
+                                    document.getElementById('abn_lookup').classList.remove('notvalid')
+                                    if(abn.replace(/\s/g, '').length == 11){
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: "https://flexikitch.shopifyprivate.app/lookup_abn",
+                                            dataType: 'json',
+                                            data: {
+                                                hash: "hash-here",
+                                                abn: abn.replace(/\s/g, '')
+                                            },
+                                            success: function(data) {
+                                                console.log(data)
+                                                if(data.status == 'success' && data.details){
+                                                    if(data.details.found && data.details.status == 'Active'){
+                                                        document.getElementById('ff-next').removeAttribute('disabled')
+                                                        document.getElementById('abn_lookup').classList.add('valid')
+                                                        if(document.getElementById('biz_name').value.length == 0){
+                                                            document.getElementById('biz_name').value = data.details.entity
+                                                        }
+                                                    }else{
+                                                        document.getElementById('ff-next').setAttribute('disabled', 'disabled')
+                                                        document.getElementById('abn_lookup').classList.add('notvalid')
+                                                        alert('ABN must be Active - this ABN is '+data.details.status)
+                                                    }
+                                                }else{
+                                                    // allow anyway
+                                                    document.getElementById('ff-next').removeAttribute('disabled')
+                                                }
+                                                document.getElementsByClassName('val-abn')[0].removeAttribute('disabled')
+                                            },
+                                            error: function(err){
+                                                document.getElementById('ff-next').removeAttribute('disabled')
+                                                document.getElementsByClassName('val-abn')[0].removeAttribute('disabled')
+                                                console.error(err)
+                                            }
+                                        });
+                                    }else{
+                                        if(!hide_alert){
+                                            alert('ABN must be exactly 11 characters long.')
+                                        }
+                                        document.getElementsByClassName('val-abn')[0].removeAttribute('disabled')
+                                    }
+                                }
+                                {% if fk_step == 3 %}
+                                window.addEventListener('load', (event) => {
+                                    ffAbnLookup(true);
+                                });
+                                {% endif %}
+                            </script>
+                        </div>
+                        <div class="ff-input-holder">
+                            <label>Registered Business Name *</label>
+                            <input id="biz_name" type="text" class="ff-input" name="business_details[business_name]" value="{{ fk_from.business_details.business_name }}" required />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Business Type *</label>
+                            <select class="ff-input" name="business_details[business_type]" required>
+                                <option value="" selected disabled hidden>-- Please Choose</option>
+                                <option value="Aged Care">Aged Care</option>
+                                <option value="Architects, Designers, Shopfitters, Builders">Architects, Designers, Shopfitters, Builders</option>
+                                <option value="Bakery Industry">Bakery Industry</option>
+                                <option value="Beverage - Manufacturers & Distributors">Beverage - Manufacturers & Distributors</option>
+                                <option value="Cafe & Restaurants">Cafe & Restaurants</option>
+                                <option value="Coffee Industry">Coffee Industry</option>
+                                <option value="Construction">Construction</option>
+                                <option value="Corporate Customers">Corporate Customers</option>
+                                <option value="Food Supplier">Food Supplier</option>
+                                <option value="Franchisee & Franchiser">Franchisee & Franchiser</option>
+                                <option value="Gym, Hotels, Bars, Pubs, Clubs">Gym, Hotels, Bars, Pubs, Clubs</option>
+                                <option value="Resellers">Resellers</option>
+                                <option value="Retail">Retail</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <script>document.querySelector('select[name="business_details[business_type]"]').value = "{{ fk_from.business_details.business_type }}";</script>
+                        <div class="ff-input-holder">
+                            <label>If 'Other' please let us know what type of business:</label>
+                            <input type="text" class="ff-input" name="business_details[business_type_other]" value="{{ fk_from.business_details.business_type_other }}"  />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Tell us about your business *</label>
+                            <textarea type="text" class="ff-input" name="business_details[about]" placeholder="For example: Operating for, Number of staff, Size of the business, What are you looking to do/change?" >{{ fk_from.business_details.about }}</textarea>
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Is your business new or existing? *</label>
+                            <select class="ff-input" name="business_details[operating_status]" required>
+                                <option value="" selected disabled hidden>-- Please Choose</option>
+                                <option value="Existing">Existing</option>
+                                <option value="New">New</option>
+                            </select>
+                        </div>
+                        <script>document.querySelector('select[name="business_details[operating_status]"]').value = "{{ fk_from.business_details.operating_status }}";</script>
+                        <div class="ff-input-holder">
+                            <label>IF "New" what is the proposed starting date?</label>
+                            <input type="text" class="ff-input" name="business_details[opening_date]" value="{{ fk_from.business_details.opening_date }}"  />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label style="width:100%;">Please list all Directors & Owners *:</label>
+                            <div id="ff-owner-holder">
+                                {% if fk_step == blank or fk_from.business_details.owners.size == 1 and fk_from.business_details.owners[0].name == blank %}
+                                    <div class="ff-owner" id="owner0">
+                                        <input type="text" class="ff-input ff-owner-name" name="business_details[owners][0][name]" placeholder="Full Name" value="" required />
+                                        <input type="text" class="ff-input ff-owner-pos" name="business_details[owners][0][position]" placeholder="Position" value=""  required />
+                                    </div>
+                                {% else %}
+                                    {% assign oI = 0 %}
+                                    {% for owner in fk_from.business_details.owners %}
+                                        {% if owner.name != blank %}
+                                            <div class="ff-owner" id="owner{{ oI }}">
+                                                <input type="text" class="ff-input ff-owner-name" name="business_details[owners][{{ oI }}][name]" placeholder="Full Name" value="{{ owner.name }}" required />
+                                                <input type="text" class="ff-input ff-owner-pos" name="business_details[owners][{{ oI }}][position]" placeholder="Position" value="{{ owner.position }}"  required />
+                                                {% if oI > 0 %}
+                                                <button type="button" onclick="ffRemoveOwner({{ oI }})">-</button>
+                                                {% endif %}
+                                            </div>
+                                            {% assign oI = oI | plus: 1 %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="ff-owner-actions">
+                                <button type="button" id="ff-add-owner">+ Add Owner</button>
+                            </div>
+                        </div>
+                        <script>
+                            function ffRemoveOwner(oId){
+                                $('#owner'+oId).remove();
+                            }
+                        </script>
+                    </div>
+                </div>
+                <div id="financial-details" class="ff-section {% if fk_step == 4 %}ff-active{% endif %}">
+                    <h3>
+                        Financial Details
+                    </h3>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>What is the projected financial amount you are seeking? *</label>
+                            <select class="ff-input" name="financial_details[seeking_amount]" required>
+                                <option value=""  disabled hidden>-- Please Choose</option>
+                                <option value="Less than 10K">Less than 10K</option>
+                                <option value="10K to 24K">10K to 24K</option>
+                                <option value="25K to 49K">25K to 49K</option>
+                                <option value="50K to 100K">50K to 100K</option>
+                                <option value="More than 100K">More than 100K</option>
+                            </select>
+                        </div>
+                    </div>
+                    <script>document.querySelector('select[name="financial_details[seeking_amount]"]').value = "{{ fk_from.financial_details.seeking_amount }}";</script>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder ff-radio-holder">
+                            <span>Are there other creditors providing funding for this project? *</span>
+                            <label><input type="radio" id="fd1_Yes" class="ff-radio" name="financial_details[creditor_funding]" value="Yes" required>Yes</input> </label>
+                            <label><input type="radio" id="fd1_No" class="ff-radio" name="financial_details[creditor_funding]" value="No" required>No</input> </label>
+                        </div>
+                        <script>let checkfd1 = document.querySelector('#fd1_{{ fk_from.financial_details.creditor_funding }}');if(checkfd1){checkfd1.checked = true;}</script>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Are you able to provide the following supporting documents (if requested)? *</label>
+                            <div class="ff-input-holder ff-radio-holder">
+                                <span>Cashflow Forecast or other Financial Analysis</span>
+                                <label><input type="radio" id="fd2_Yes" class="ff-radio" name="financial_details[cashflow_forecast]" value="Yes" required>Yes</input> </label>
+                                <label><input type="radio" id="fd2_No" class="ff-radio" name="financial_details[cashflow_forecast]" value="No" required>No</input> </label>
+                            </div>
+                            <script>let checkfd2 = document.querySelector('#fd2_{{ fk_from.financial_details.cashflow_forecast }}');if(checkfd2){checkfd2.checked = true;}</script>
+                            <div class="ff-input-holder ff-radio-holder">
+                                <span>Current Tax return or Personal Financial Statement</span>
+                                <label><input type="radio" id="fd3_Yes" class="ff-radio" name="financial_details[tax_return]" value="Yes" required>Yes</input> </label>
+                                <label><input type="radio" id="fd3_No" class="ff-radio" name="financial_details[tax_return]" value="No" required>No</input> </label>
+                            </div>
+                            <script>let checkfd3 = document.querySelector('#fd3_{{ fk_from.financial_details.tax_return }}');if(checkfd3){checkfd3.checked = true;}</script>
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Are you able to provide the following supporting documents which will be required at a later stage? *</label>
+                            <div class="ff-input-holder ff-radio-holder">
+                                <span>Lease Agreement</span>
+                                <label><input type="radio" id="fd4_Yes" class="ff-radio" name="financial_details[lease]" value="Yes" required>Yes</input> </label>
+                                <label><input type="radio" id="fd4_No" class="ff-radio" name="financial_details[lease]" value="No" required>No</input> </label>
+                            </div>
+                            <script>let checkfd4 = document.querySelector('#fd2_{{ fk_from.financial_details.lease }}');if(checkfd4){checkfd4.checked = true;}</script>
+                            <div class="ff-input-holder ff-radio-holder">
+                                <span>Business Insurance Details</span>
+                                <label><input type="radio" id="fd5_Yes" class="ff-radio" name="financial_details[insurance]" value="Yes" required>Yes</input> </label>
+                                <label><input type="radio" id="fd5_No" class="ff-radio" name="financial_details[insurance]" value="No" required>No</input> </label>
+                            </div>
+                            <script>let checkfd5 = document.querySelector('#fd5_{{ fk_from.financial_details.insurance }}');if(checkfd5){checkfd5.checked = true;}</script>
+                        </div>
+                    </div>
+
+                </div>
+                <div id="social-media" class="ff-section {% if fk_step == 5 %}ff-active{% endif %}">
+                    <h3>
+                        Business & Social Links
+                    </h3>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <label>Please provide any applicable links here:</label>
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <input type="text" class="ff-input" name="social_links[website]" value="{{ fk_from.social_links.website }}" placeholder="Website URL" />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <input type="text" class="ff-input" name="social_links[linked_in]" value="{{ fk_from.social_links.linked_in }}" placeholder="LinkedIn URL" />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <input type="text" class="ff-input" name="social_links[Instagram]" value="{{ fk_from.social_links.Instagram }}" placeholder="Instagram URL" />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <input type="text" class="ff-input" name="social_links[Facebook]" value="{{ fk_from.social_links.Facebook }}" placeholder="Facebook URL" />
+                        </div>
+                    </div>
+                    <div class="ff-form-group">
+                        <div class="ff-input-holder">
+                            <textarea type="text" class="ff-input" name="social_links[other]" placeholder="List any other URLs here">{{ fk_from.social_links.other }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" id="ff-back" class="ff-btn ff-sec-btn" {% if fk_step == blank or fk_step == 1 %}disabled{% endif %}>Back</button>
+                <button type="button" id="ff-next" class="ff-btn">{% if fk_step != blank %}Save & Continue{% else %}Start Application{% endif %}</button>
+                <small class="isRequired">* Required Field</small>
+            </div>
+        </form>
+        <form id="SubmitApplication" action="https://flexikitch.shopifyprivate.app/submit_application" method="POST" enctype="multipart/form-data">
+            <input type="hidden" id="customerId" name="customerId" value="{{ customer.id }}" />
+            <input type="hidden" id="serialInput" name="serialInput" value="" />
+            <div class="form-elements">
+                <div id="documentation-authorisation" class="ff-section {% if fk_step == 6 %}ff-active{% endif %}">
+                    <h3>
+                        Documentation Authorisation
+                    </h3>
+                    <p style="font-style: italic;color: #f26449;text-align: center;">Please upload the following documentation for all owners / directors:</p>
+                    <p style="font-style: italic;text-align: center;">
+                        <strong>Please Note:</strong> Documentation supplied here can be either an image (JPG, PNG or GIF) or a PDF. Each file must not exceed 20MB.
+                    </p>
+                    <div id="doc-select"></div>
+                    <script>
+                        function switchDocType(el){
+                            let type = $(el).val();
+                            let owner = $(el).attr('data-owner');
+                            $('#fd-'+owner+' .fd-type').hide();
+                            $('#fd-'+owner+' .fd-type input').removeAttr('required')
+                            if(type == "dl_mc"){
+                                $('#fd-'+owner+' .fd-dl').show();
+                                $('#fd-'+owner+' .fd-dl').attr('required','required');
+                                $('#fd-'+owner+' .fd-mc').show();
+                                $('#fd-'+owner+' .fd-mc').attr('required','required');
+                            }else if(type == "kp_ub_mc"){
+                                $('#fd-'+owner+' .fd-kp').show();
+                                $('#fd-'+owner+' .fd-kp').attr('required','required');
+                                $('#fd-'+owner+' .fd-mc').show();
+                                $('#fd-'+owner+' .fd-mc').attr('required','required');
+                                $('#fd-'+owner+' .fd-ub').show();
+                                $('#fd-'+owner+' .fd-ub').attr('required','required');
+                            }else if(type == "pp_ub_mc"){
+                                $('#fd-'+owner+' .fd-pp').show();
+                                $('#fd-'+owner+' .fd-pp').attr('required','required');
+                                $('#fd-'+owner+' .fd-mc').show();
+                                $('#fd-'+owner+' .fd-mc').attr('required','required');
+                                $('#fd-'+owner+' .fd-ub').show();
+                                $('#fd-'+owner+' .fd-ub').attr('required','required');
+                            }
+                        }
+                    </script>
+                    <p style="font-style: italic;color: #f26449;text-align: center;line-height: 18px;"><strong>Please Note</strong> Your uploads are not saved unless you submit and complete the application<br>so only upload documents when you have all the documents for each owner.</p>
+                </div>
+                <div id="confirm-application" class="ff-section  {% if fk_step == 7 %}ff-active{% endif %}">
+                    <h3>
+                        Confirm Application Details
+                    </h3>
+                    <p style="text-align: center;">Please read through and confirm your application details before submitting.</p>
+                    <div id="doc-review"></div>
+                    <div class="ff-form-group">
+                        <label class="ff-checkbox-holder">
+                            I hereby declare that the information provided is true and correct. I also understand that any misleading / false information may result in refusal of this application. I authorise Flexikitch Pty Ltd to conduct a credit check for the purpose of an application for equipment / finance upon acceptance of the sales quote
+                            <input type="checkbox" id="FormDeclare" name="doc_auth[declaration]" required />
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                    <div class="form-submit">
+                        <button type="button" id="ff-back2" class="ff-btn ff-sec-btn">Back</button>
+                        <button type="submit" id="ff-submit" class="ff-btn" disabled>Submit Application</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <input type="hidden" id="owner-count" value="{{ oI | default: 1 }}" />
+    <input type="hidden" id="current-step" value="2" />
+
+
+    {% endif %}
+{% else %}
+    <div id="AccountNeeded">
+        <p>To Apply for Finance, please <a href="/account/register">Create an Account</a> or <a href="/account/login">Login to your Account</a> to get started.</p>
+    </div>
+{% endif %}

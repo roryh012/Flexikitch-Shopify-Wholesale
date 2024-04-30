@@ -1,0 +1,135 @@
+{% schema %}
+{
+  "name": "Wholesale Content 01",
+  "class": "wholesale-content-01",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "How it Works"
+    },
+    {
+      "type": "richtext",
+      "id": "main_content",
+      "label": "Main Content",
+      "default": "<p>Flexikitch offers a convenient, cost-effective way...</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "additional_info",
+      "label": "Additional Information",
+      "default": "<p>If you can't find what you want, or need some advice...</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "right_heading",
+      "label": "Right Heading",
+      "default": "To get started..."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_icon",
+          "label": "Step Icon Class",
+          "default": "bi bi-mouse2-fill"
+        },
+        {
+          "type": "text",
+          "id": "step_title",
+          "label": "Step Title",
+          "default": "Choose your equipment"
+        },
+        {
+          "type": "richtext",
+          "id": "step_description",
+          "label": "Step Description",
+          "default": "<p>This portal showcases a huge range of specialty...</p>"
+        }
+      ],
+      "limit": 5
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale Content 01",
+      "category": "Wholesale"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="fkw-container fkw-dark-bg">
+  <div class="fkw-row">
+    <div class="fkw-col-6">
+       <div class="fkw-row fkw-align-items-stretch fkw-content-01-outline">
+          <div class="fkw-col-12 fkw-pt-25 fkw-pl-30 fkw-pr-30">
+            <h2 class="fkw-heading">{{ section.settings.heading }}</h2>
+            <div class="fkw-text">
+              {{ section.settings.main_content }}
+            </div>
+          </div>
+       </div>
+    </div>
+    <div class="fkw-col-6">
+      <div class="fkw-content-01">
+        <h2 class="fkw-heading">{{ section.settings.right_heading }}</h2>
+        <ul class="fkw-steps">
+          {% assign bCount = 1 %}
+          {% for block in section.blocks %}
+            <li class="fkw-step">
+              <div class="fkw-step-icon">
+                {{ bCount }}
+              </div>
+              <div class="fkw-step-content">
+                <h3 class="fkw-step-title">{{ block.settings.step_title }}</h3>
+                <div class="fkw-step-desc-wrapper"> <!-- Wrapper for sliding effect -->
+                  <div class="fkw-step-desc">{{ block.settings.step_description }}</div>
+                </div>
+              </div>
+              <div class="fkw-step-toggle"></div>
+            </li>
+            {% assign bCount = bCount | plus: 1 %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.wholesale-content-01{
+  background-color:#FFFFFF!important;
+}
+</style>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const steps = document.querySelectorAll('.fkw-step');
+
+    steps.forEach(step => {
+      const contentArea = step.querySelector('.fkw-step-content');
+      contentArea.addEventListener('click', function() {
+        const descWrapper = step.querySelector('.fkw-step-desc-wrapper');
+        const isExpanded = step.classList.contains('expanded');
+        document.querySelectorAll('.fkw-step.expanded .fkw-step-desc-wrapper').forEach(el => {
+          el.style.maxHeight = null;
+        });
+        document.querySelectorAll('.fkw-step').forEach(el => el.classList.remove('expanded'));
+        if (!isExpanded) {
+          step.classList.add('expanded');
+          descWrapper.style.maxHeight = descWrapper.scrollHeight + "px";
+        }
+      });
+    });
+  });
+</script>

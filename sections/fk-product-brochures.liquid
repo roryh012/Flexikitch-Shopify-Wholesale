@@ -1,0 +1,61 @@
+{%- assign pdf01 = product.metafields.documents.pdf_1 %}
+{%- assign pdf02 = product.metafields.documents.pdf_2 %}
+{%- assign pdf03 = product.metafields.documents.pdf_3 %}
+{%- assign pdf04 = product.metafields.documents.pdf_4 %}
+{%- if pdf01 != blank -%}
+<section class="section" data-section-id="{{ section.id }}" data-section-type="html">
+    <div class="container container--flush">
+        <div class="card">
+            <div class="card__header">
+                <h3 class="card__title heading h3">{{ section.settings.title | escape }}</h3>
+            </div>
+            <div class="card__section card__section--tight product-pdf-downloads">
+                <div class="product-brochures">
+                    <a href="{{ pdf01 | file_url }}" class="product-brochure">
+                        <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                        <span>{{ pdf01 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                    </a>
+                    {%- if pdf02 != blank -%}
+                        <a href="{{ pdf02 | file_url }}" class="product-brochure">
+                            <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                            <span>{{ pdf02 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                        </a>
+                    {%- endif -%}
+                    {%- if pdf03 != blank -%}
+                        <a href="{{ pdf03 | file_url }}" class="product-brochure">
+                            <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                            <span>{{ pdf03 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                        </a>
+                    {%- endif -%}
+                    {%- if pdf04 != blank -%}
+                        <a href="{{ pdf04 | file_url }}" class="product-brochure">
+                            <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                            <span>{{ pdf04 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                        </a>
+                    {%- endif -%}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{%- endif -%}
+<p style="width: 100%;background: #f26449;color: #FFF;padding: 5px 15px;text-align: center;"><i>We make all reasonable efforts to ensure the accuracy of our website content and pricing, however from time to time this may vary and is subject to change.</i></p>
+{% schema %}
+{
+    "name": "FK - Brochures",
+    "settings": [
+        {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Brochures"
+        }
+    ],
+    "presets": [
+        {
+            "category": "Flexikitch",
+            "name": "FK - Brochures"
+        }
+    ]
+}
+{% endschema %}

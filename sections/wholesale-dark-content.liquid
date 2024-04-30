@@ -1,0 +1,46 @@
+{% schema %}
+{
+  "name": "Dark Content Box",
+  "class": "fkw-darkbox",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },{
+      "type": "textarea",
+      "id": "content",
+      "label": "Content"
+    },{
+      "type": "textarea",
+      "id": "content_wholesale",
+      "label": "Content Wholesale"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dark Content Box",
+      "category": "Cart"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="fkw-container">
+  <div class="fkw-col-8 fkw-offset-2">
+    <div class="card dark-card">
+      <div class="card__header">
+        <h3 class="card__title heading h3 fkw-mb-0">{{ section.settings.heading }}</h3>
+      </div>
+      {% if customer and customer.tags contains "wholesale" %}
+        <div class="card__section dcb-content_wholesale">
+          {{ section.settings.content_wholesale }}
+        </div>
+      {% else %}
+        <div class="card__section dcb-content">
+          {{ section.settings.content }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,76 @@
+{% schema %}
+{
+  "name": "Wholesale Collections",
+  "class": "wholesale-collections",
+  "settings": [
+    {
+      "type": "text",
+      "id": "collections_heading",
+      "label": "Collections Heading",
+      "default": "Browse our Discounted Metcash Products by Category"
+    }
+  ],
+  "max_blocks": 9,
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Collection Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Collection Title"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale Collections",
+      "category": "Wholesale"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="fkw-container">
+  <div class="fkw-row fkw-mb-20">
+    <div class="fkw-col-12 fkw-section-heading">
+      <h3>{{ section.settings.collections_heading }}</h3>
+    </div>
+  </div>
+  <div class="fkw-row">
+    {% for block in section.blocks %}
+      <div class="fkw-col-4">
+        <div class="fkw-collection-block">
+          <a href="{{ block.settings.link }}" class="fkw-collection-link">
+            <img width="100%" height="auto" src="{{ block.settings.image | image_url }}" alt="{{ block.settings.title }}" class="fkw-collection-image">
+            <h3 class="fkw-collection-title">{{ block.settings.title }}</h3>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+  });
+</script>
+
+<style>
+</style>

@@ -1,0 +1,280 @@
+{%- assign selected_variant = product.selected_or_first_available_variant -%}
+{%- assign product_form_id = 'product_form_' | append: section.id | append: product.id -%}
+
+{%- assign product_dinkus = product.metafields.general.dinkus -%}
+
+
+{%- form 'product', product, id: product_form_id, class: 'product-form' -%}
+{% comment %} {% if template.name == 'product' %}card--sticky{% endif %}   removed from product card for update {% endcomment %}
+<div class="card {% if product.media.size > 0 %}card--collapsed{% endif %}">
+  {%- if section.settings.enable_image_zoom -%}
+    <div id="product-zoom-{{ section.id }}" class="product__zoom-wrapper"></div>
+  {%- endif -%}
+  <div class="card__section  {% if product_dinkus != blank %}product-with-dinkus{% endif %} ">
+    <div class="product-dinkus {{ product_dinkus | downcase | replace: " ", "-" }}"><span class="dinkus">{{ product_dinkus }}</span></div>
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'product_meta' -%}
+          {%- render 'product-meta', product: product, block: block -%}
+
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+<div class="card {% if product.media.size > 0 %}card--collapsed{% endif %}">
+    <div class="card__section ">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'variant_selector' -%}
+              {%- render 'product-variant-selector', product: product, form: form, block: block -%}
+
+            {%- when 'buy_buttons' -%}
+              {%- render 'product-buy-buttons', product: product, form: form, block: block -%}
+
+              {%- render 'fk-rental-info', product: product -%}
+
+            {%- when 'button' -%}
+              {%- if block.settings.text != blank -%}
+                <a href="{{ block.settings.link }}" class="product-meta__button button button--primary" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</a>
+              {%- endif -%}
+
+            {%- when 'store_pickup' -%}
+              {%- comment -%}The availability container will be added automatically if there is store pickup available{%- endcomment -%}
+              <div class="product-meta__store-availability-container" {{ block.shopify_attributes }}>
+                {%- render 'store-availability', product_variant: product.selected_or_first_available_variant -%}
+              </div>
+
+            {%- when 'featured_description' -%}
+              {%- comment -%}This is only shown on the featured product section{%- endcomment -%}
+              {%- if product.description != blank -%}
+                <div class="product-meta__description rte" {{ block.shopify_attributes }}>
+                  {{ product.description | remove: 'data-section-type="product"' }}
+                </div>
+              {%- endif -%}
+
+            {%- when '@app' -%}
+              {%- render block -%}
+          {%- endcase -%}
+        {%- endfor -%}
+
+        {%- assign product_meta_block = section.blocks | where: 'type', 'product_meta' | first -%}
+
+        {%- if product_meta_block != blank and product_meta_block.settings.show_share_buttons -%}
+        <div class="product-meta__share-buttons hidden-tablet-and-up">
+          <span class="text--strong">{{ 'product.general.share' | t }}</span>
+
+          {%- assign share_url = shop.url | append: product.url | url_param_escape -%}
+          {%- assign twitter_text = product.title | url_param_escape -%}
+          {%- assign pinterest_description = product.description | strip_html | truncatewords: 15 | url_param_escape -%}
+          {%- assign pinterest_image = product.featured_media | img_url: '1024x' | prepend: 'https:' -%}
+
+          <ul class="social-media__item-list list--unstyled" role="list">
+            <li class="social-media__item social-media__item--facebook">
+              <a href="https://www.facebook.com/sharer.php?u={{ share_url }}" target="_blank" rel="noopener" aria-label="{{ 'general.social.facebook_share' | t }}">{%- render 'icon', icon: 'facebook' -%}</a>
+            </li>
+
+            <li class="social-media__item social-media__item--pinterest">
+              <a href="https://pinterest.com/pin/create/button/?url={{ share_url }}{% if pinterest_image != blank %}&media={{ pinterest_image }}{% endif %}&description={{ pinterest_description }}" target="_blank" rel="noopener" aria-label="{{ 'general.social.pinterest_pin' | t }}">{%- render 'icon', icon: 'pinterest' -%}</a>
+            </li>
+
+            <li class="social-media__item social-media__item--twitter">
+              <a href="https://twitter.com/share?{% if twitter_text != blank %}text={{twitter_text}}&{% endif %}url={{ share_url }}" target="_blank" rel="noopener" aria-label="{{ 'general.social.twitter_tweet' | t }}">{%- render 'icon', icon: 'twitter' -%}</a>
+            </li>
+
+            <li class="social-media__item">
+              <a href="mailto:?&subject={{ product.title | escape }}&body={{ share_url }}" aria-label="{{ 'general.social.email_share' | t }}">{% render 'icon', icon: 'email' %}</a>
+            </li>
+          </ul>
+        </div>
+        {%- endif -%}
+      </div>
+
+</div>
+{%- endform -%}
+
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'fk_brochure' -%}
+        {%- assign pdf01 = product.metafields.documents.pdf_1 %}
+        {%- assign pdf02 = product.metafields.documents.pdf_2 %}
+        {%- assign pdf03 = product.metafields.documents.pdf_3 %}
+        {%- assign pdf04 = product.metafields.documents.pdf_4 %}
+        {%- if pdf01 != blank -%}
+          <div class="card">
+            <div class="card__header">
+                <h3 class="card__title heading h3">Brochure and User Guide</h3>
+            </div>
+            <div class="card__section card__section--tight product-pdf-downloads">
+                <div class="product-brochures">
+                    <a href="{{ pdf01 | file_url }}" class="product-brochure">
+                        <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                        <span>{{ pdf01 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                    </a>
+                    {%- if pdf02 != blank -%}
+                        <a href="{{ pdf02 | file_url }}" class="product-brochure">
+                            <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                            <span>{{ pdf02 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                        </a>
+                    {%- endif -%}
+                    {%- if pdf03 != blank -%}
+                        <a href="{{ pdf03 | file_url }}" class="product-brochure">
+                            <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                            <span>{{ pdf03 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                        </a>
+                    {%- endif -%}
+                    {%- if pdf04 != blank -%}
+                        <a href="{{ pdf04 | file_url }}" class="product-brochure">
+                            <img src="{{ "fk_pdf-download-icon.png" | asset_url }}" />
+                            <span>{{ pdf04 | file_url | split: "?" | first | split: "/" | last | replace: ".pdf", "" | replace: "-", " " | capitalize }}</span>
+                        </a>
+                    {%- endif -%}
+                </div>
+            </div>
+          </div>
+        {%- endif -%}
+        {%- when 'fk_video' -%}
+        {% assign productVideo = block.settings.video_link %}
+        {%- if productVideo == blank -%}
+          {% assign productVideo = 'HGvKk6FbH3s' %}
+        {%- endif -%}
+        <div class="card">
+          <div class="card__header">
+            <h3 class="card__title heading h3">Product Video</h3>
+          </div>
+          <div class="card__section card__section--tight product-pdf-downloads">
+              <div class="product-video">
+                  <iframe width="100%" height="300"
+                  src="https://www.youtube.com/embed/{{ productVideo }}" frameborder="0" 
+                  allowfullscreen></iframe>
+              </div>
+          </div>
+        </div>
+        {%- when 'shipping_estimator' -%}
+          {%- if product.available -%}
+            <div class="card">
+              <div class="card__header">
+                <h2 class="card__title heading h3">{{ 'product.general.estimate_shipping' | t }}</h2>
+              </div>
+
+              <div class="card__section">
+                <div class="shipping-estimator form" role="form">
+                  <div class="form__input-row">
+                    <div class="form__input-wrapper">
+                      <label for="shipping-estimator-country" class="form__label">{{ 'cart.shipping_estimator.country' | t }}</label>
+
+                      <div class="select-wrapper select-wrapper--primary">
+                        {%- render 'icon', icon: 'arrow-bottom' -%}
+
+                        <select name="country" id="shipping-estimator-country" data-default="{{ customer.default_address.country | default: block.settings.shipping_estimator_default_country }}" required>
+                          {{- country_option_tags -}}
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form__input-wrapper" style="display: none">
+                      <label for="shipping-estimator-province" class="form__label">{{ 'cart.shipping_estimator.province' | t }}</label>
+
+                      <div class="select-wrapper select-wrapper--primary">
+                        {%- render 'icon', icon: 'arrow-bottom' -%}
+
+                        <select name="province" id="shipping-estimator-province" data-default="{{ customer.default_address.province }}"></select>
+                      </div>
+                    </div>
+
+                    <div class="form__input-wrapper" style="max-width: 155px">
+                      <label for="shipping-estimator-zip" class="form__label">{{ 'cart.shipping_estimator.zip_code' | t }}</label>
+                      <input type="text" name="zip" id="shipping-estimator-zip" class="form__field form__field--text" value="{{ customer.default.address.zip }}" required>
+                    </div>
+                  </div>
+
+                  <button type="button" class="form__submit button button--primary" data-action="estimate-shipping">{{ 'cart.shipping_estimator.estimate' | t }}</button>
+
+                  <div class="shipping-estimator__results rte" style="display: none;"></div>
+                </div>
+              </div>
+
+              {%- if block.settings.show_refunds_policy and shop.refund_policy != blank -%}
+                <div class="card__section card__section--tight">
+                  <button class="product__refund-policy-link link link--accented" data-action="open-modal" aria-controls="modal-refunds-policy">{{ 'product.general.refund_policy' | t }} {%- render 'icon', icon: 'arrow-right' -%}</button>
+                </div>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.show_refunds_policy and shop.refund_policy != blank -%}
+              <div id="modal-refunds-policy" class="modal" aria-hidden="true">
+                <div class="modal__dialog" role="dialog">
+                  <header class="modal__header">
+                    <h3 class="modal__title heading h2">{{ 'product.general.refund_policy' | t }}</h3>
+                    <button class="modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+                      {%- render 'icon', icon: 'close' -%}
+                    </button>
+                  </header>
+
+                  <div class="modal__content">
+                    <div class="rte">
+                      {{ shop.refund_policy }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+    {%- endcase -%}
+  {%- endfor -%}
+
+
+  {%- render 'fk-rental-modal' -%}
+
+  {% comment %}
+  ------------------------------------------------------------------------------
+  Product Data. This must be outputted for all products (including home page).
+
+  IMPORTANT: THIS CODE IS VITAL. DO NOT EDIT IT NOR REMOVE IT. MAKE SURE TO KEEP
+  THE EXACT SAME ATTRIBUTES.
+  ------------------------------------------------------------------------------
+  {% endcomment %}
+
+  {%- assign variant_selector_block = section.blocks | where: 'type', 'variant_selector' | first -%}
+
+  <script type="application/json" data-product-json>
+    {
+      "product": {{ product | json }},
+      "options_with_values": {{ product.options_with_values | json }},
+      "selected_variant_id": {{ selected_variant.id }}
+      {%- if variant_selector_block.settings.show_inventory_quantity -%}
+        ,"inventories": {
+          {%- for variant in product.variants -%}
+            {%- if variant.available -%}
+              {%- if variant.inventory_management and variant.inventory_policy == 'deny' and variant_selector_block.settings.low_inventory_threshold > 0 -%}
+                {%- if variant.inventory_quantity <= variant_selector_block.settings.low_inventory_threshold -%}
+                  {%- capture inventory_message -%}{{ 'product.form.low_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
+                {%- else -%}
+                  {%- capture inventory_message -%}{{ 'product.form.in_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
+                {%- endif -%}
+              {%- else -%}
+                {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity <= 0 and selected_variant.requires_shipping -%}
+                  {%- if variant.incoming -%}
+                    {%- capture next_incoming_date -%}{{ variant.next_incoming_date | date: format: 'date' }}{%- endcapture -%}
+                    {%- capture inventory_message -%}{{ 'product.form.incoming_stock' | t: next_incoming_date: next_incoming_date }}{%- endcapture -%}
+                  {%- else -%}
+                    {%- capture inventory_message -%}{{ 'product.form.oversell_stock' | t }}{%- endcapture -%}
+                  {%- endif -%}
+                {%- else %}
+                  {%- capture inventory_message -%}{{ 'product.form.in_stock' | t }}{%- endcapture -%}
+                {%- endif -%}
+              {%- endif -%}
+            {%- else -%}
+              {%- capture inventory_message -%}{{ 'product.form.sold_out' | t }}{%- endcapture -%}
+            {%- endif -%}
+
+            "{{ variant.id }}": {
+              "inventory_management": {{ variant.inventory_management | json }},
+              "inventory_policy": {{ variant.inventory_policy | json }},
+              "inventory_quantity": {{ variant.inventory_quantity | json }},
+              "inventory_message": {{ inventory_message | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        }
+      {%- endif -%}
+    }
+  </script>

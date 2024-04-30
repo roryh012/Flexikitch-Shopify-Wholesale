@@ -1,0 +1,82 @@
+{% schema %}
+{
+  "name": "Wholesale Header",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "image_text",
+      "name": "Image, Heading & CTA",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Heading",
+          "default": "Sample Text"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "CTA Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "CTA Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale Header",
+      "category": "Wholesale"
+    }
+  ]
+}
+{% endschema %}
+
+<link rel="stylesheet" href="{{ 'flickity.css' | asset_url }}">
+
+<div class="fkw-carousel-container">
+  <div class="fkw-carousel" data-flickity='{ "wrapAround": true, "autoPlay": 5000 }'>
+    {% for block in section.blocks %}
+    <div class="fkw-carousel-cell" style="background-image: url('{{ block.settings.image | image_url }}');">
+      <div class="fkw-container fkw-no-bg fkw-h100">
+        <div class="fkw-row fkw-align-items-center">
+          <div class="fkw-col-6">
+            <h1 class="fkw-white">{{ block.settings.text }}</h1>
+            <a href="{{ block.settings.button_link }}" class="fkw-btn fkw-btn-lg fkw-btn-primary">{{ block.settings.button_text }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="{{ 'flickity.js' | asset_url }}" defer></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var elem = document.querySelector('.fkw-carousel');
+    var flkty = new Flickity( elem, {
+      // options
+      cellAlign: 'left',
+      contain: true,
+      wrapAround: true,
+      autoPlay: 5000
+    });
+    document.querySelector('main').classList.add('fkw-main');
+  });
+</script>
+
+<style>
+  
+
+</style>

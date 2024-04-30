@@ -1,0 +1,97 @@
+<div class="fk-modal">
+    <div class="fk-modal__content">
+      <span class="fk-modal__close">Close Window</span>
+      <h2 class="fkw-heading"><strong>Interested in Learning More?</strong></h2>
+      <p class="fkw-text">
+        Our team is eager to assist you. Simply fill out the form below with your contact details, and we'll be in touch shortly to address any questions or provide further insights.
+      </p>
+      <div class="fkw-product-info">
+        <div class="fkw-product-image">
+            <img src="" alt="" class="fkw-product-img">
+        </div>
+        <h3 class="fkw-product-title"></h3>
+        <p class="fkw-product-sku"></p>
+      </div>
+      <div class="fkw-product-info text-center form-response-message" style="display:none">
+        <p id="form-response-message"></p>
+        <p class="fkw-mt-15"><span class="fk-modal__close">Close this Window</span></p>
+      </div>
+      <form class="fkw-form" id="contact_form">
+        <input type="hidden" name="is_wholesale" value="{% if customer and customer.tags contains "wholesale" %}yes{% endif %}">
+        <input type="hidden" name="p_id" id="p_id" value="">
+        <input type="hidden" name="p_name" id="p_name"  value="">
+        <input type="hidden" name="p_sku" id="p_sku"  value="">
+        <input type="hidden" name="p_url" id="p_url" value="">
+        <input type="hidden" name="p_img" id="p_img" value="">
+        <div class="fkw-form-group fkw-mb-20">
+          <div class="fkw-input-block">
+            <label for="email" class="fkw-form-label">Email Address</label>
+            <input type="email" name="email" class="fkw-form-control-nph" value="{% if customer %}{{ customer.email }}{% endif %}" >
+            <i class="bi bi-envelope-fill fkw-input-icon"></i>
+          </div>
+        </div>
+        <div class="fkw-form-group fkw-mb-20">
+          <div class="fkw-input-block">
+            <label for="contact" class="fkw-form-label">Contact Number</label>
+            <input type="tel" name="contact" class="fkw-form-control-nph">
+            <i class="bi bi-telephone-fill fkw-input-icon"></i>
+          </div>
+        </div>
+        <div class="fkw-form-group fkw-mb-20">
+          <div class="fkw-input-block">
+            <label for="first-name" class="fkw-form-label">Name</label>
+            <input type="text" name="name" class="fkw-form-control-nph" value="{% if customer %}{{ customer.first_name }}{% endif %}">
+            <i class="bi bi-person-fill fkw-input-icon"></i>
+          </div>
+        </div>
+        <div class="fkw-form-group fkw-mb-20">
+          <div class="fkw-input-block">
+            <label for="business-name" class="fkw-form-label">Business Name</label>
+            <input type="text" name="business_name" class="fkw-form-control-nph" >
+            <i class="bi bi-building fkw-input-icon"></i>
+          </div>
+        </div>
+        <div class="fkw-form-group is-row fkw-justify-content-center fkw-mt-30">
+          <button id="send-enquiry" type="button" class="fkw-btn fkw-btn-lg fkw-btn-primary">SEND ENQUIRY <i class="bi bi-arrow-right"></i></button>
+        </div>
+      </form>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // add listener for #send-enquiry
+          document.getElementById('send-enquiry').addEventListener('click', function() {
+            var form = document.getElementById('contact_form');
+            var formMsg = document.querySelector('.form-response-message')
+            var formData = new FormData(form);
+            fetch('https://flexikitch.shopifyprivate.app/learn-more', {
+              method: 'POST',
+              body: formData
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    formMsg.style.display = 'flex';
+                    form.style.display = 'none';
+                    formMsg.innerHTML = 'Thank you! We have received your enquiry, and one of our team members will be in touch soon.';
+                    let count = 5;
+                    let countDown = setInterval(function() {
+                      count--;
+                      formMsg.innerHTML = 'Thank you! We have received your enquiry, and one of our team members will be in touch soon. Closing in ' + count;
+                      if (count === 0) {
+                        clearInterval(countDown);
+                      }
+                    }, 1000);
+                    setTimeout(function() {
+                      document.querySelector('.fk-modal__close').click();
+                    }, 5000);
+                } else {
+                    alert( 'There was a problem submitting the form. Please try again or phone us directly on 1300 769 161.')
+                }
+            })
+            .catch(function(error) {
+              alert( 'There was an error processing your request.');
+            });
+          });
+
+        });
+      </script>
+    </div>
+  </div>

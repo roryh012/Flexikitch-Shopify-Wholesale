@@ -1,0 +1,117 @@
+{% schema %}
+{
+  "name": "FAQs",
+  "class": "fkw-faqs",
+  "settings": [
+    {
+      "type": "text",
+      "id": "faqs_heading",
+      "label": "FAQs Heading",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer",
+          "default": "Here is the answer to the question."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQs",
+      "category": "Cart"
+    }
+  ],
+  "max_blocks": 10
+}
+{% endschema %}
+
+<div class="fkw-container">
+  <div class="fkw-col-8 fkw-offset-2">
+    <div class="card">
+      <div class="card__header">
+        <h3 class="card__title heading h3 fkw-mb-0">{{ section.settings.faqs_heading }}</h3>
+      </div>
+      <div class="card__section faq-section">
+        <div class="fkw-row">
+          {% for block in section.blocks %}
+            <div class="fkw-col-12 fkw-faq-item">
+              <div class="fkw-faq-question" onclick="toggleFaq(this)">
+                <span>{{ block.settings.question }}</span>
+                <span class="fkw-faq-icon">+</span>
+              </div>
+              <div class="fkw-faq-answer">
+                <p>{{ block.settings.answer }}</p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function toggleFaq(element) {
+    var answer = element.nextElementSibling;
+    var icon = element.querySelector('.fkw-faq-icon');
+
+    // Close all other FAQs
+    document.querySelectorAll('.fkw-faq-answer').forEach(function(el) {
+      if (el !== answer) {
+        el.style.display = 'none';
+      }
+    });
+    document.querySelectorAll('.fkw-faq-icon').forEach(function(el) {
+      if (el !== icon) {
+        el.textContent = '+';
+      }
+    });
+    if (answer.style.display === 'block') {
+      answer.style.display = 'none';
+      icon.textContent = '+';
+    } else {
+      answer.style.display = 'block';
+      icon.textContent = '-';
+    }
+  }
+
+</script>
+<style>
+  .fkw-faq-item {
+    padding: 10px 0;
+    border-bottom: solid 1px #EEE;
+  }
+  .faq-section{
+    padding: 0 15px;
+  }
+  .fkw-faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 30px;
+    font-size: 18px;
+  }
+  .fkw-faq-answer {
+    display: none;
+    padding: 10px 30px 0 30px;
+    font-size: 14px;
+  }
+  .fkw-faq-icon {
+    font-weight: bold;
+  }
+</style>

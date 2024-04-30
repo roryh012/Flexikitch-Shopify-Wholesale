@@ -1,0 +1,1024 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+    :root {
+        --primary-color: #f06056;
+        --secondary-color: #6c757d;
+        --background-color: #f8f4ec;
+        --font-color: #333;
+        --light-gray: #f8f9fa;
+    }
+    body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    h1 {
+        font-size: 60px;
+        line-height: 65px;
+        font-weight: 600;
+        color: var(--primary-color);
+        padding-right: 75px;
+        margin-bottom: 15px;
+    }
+    h3 {
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--secondary-color);
+    }
+    .apply-finance-wrapper {
+        width: 100%;
+        height: 100%;
+        min-height: 100vh;
+        background-color: var(--background-color);
+        padding-bottom: 50px;
+        padding-top: 50px;
+    }
+    .apply-finance-container {
+        width: 100%;
+        height: 100%;
+        max-width: 1000px;
+        margin: auto;
+    }
+    .apply-finance-row {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: column;
+    }
+    .apply-finance-col {
+        flex: 1;
+        justify-content: center;
+    }
+    .apply-finance-quote-container {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    .apply-finance-quote-image {
+        position: relative;
+        float: left;
+        width: 100%;
+        height: calc(100% - 220px);
+        background-size: cover;
+        background-position: top center;
+        background-repeat: no-repeat;
+    }
+    .apply-finance-quote-image-1 {
+        background-image: url({{ 'apply-finance-quote-hero-1.jpg' | asset_url }});
+    }
+    .apply-finance-quote-image-2 {
+        background-image: url({{ 'apply-finance-quote-hero-2.jpg' | asset_url }});
+    }
+    .apply-finance-quote-image-3 {
+        background-image: url({{ 'apply-finance-quote-hero-3.jpg' | asset_url }});
+    }
+    .apply-finance-quote {
+        position: relative;
+        float: left;
+        width: 100%;
+        height: 220px;
+        padding: 15px;
+    }
+    .apply-finance-quote p {
+        width: 100%;
+        padding-left: 40px;
+        margin-left: -5px;
+        margin-top: 6px;
+        font-size: 15px;
+        line-height: 25px;
+        color: #6c757d;
+    }
+    .apply-finance-quote-icon {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        font-size: 30px;
+        line-height: 50px;
+        color: #6c757d;
+    }
+    .apply-finance-form-wrapper {
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: white;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.1);
+    }
+    .apply-finance-form-section {
+        width: 100%;
+        height: auto;
+        padding-bottom: 35px;
+    }
+    .apply-finance-form-section h3 {
+        max-width: 500px;
+        margin: auto;
+        margin-bottom: 40px;
+        margin-top: 50px;
+        text-align: left;
+    }
+    .apply-finance-input-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+        border: solid 1px #c2c2c2;
+        background-color: var(--light-gray);
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+    }
+    .apply-finance-input-wrapper label {
+        width: 100%;
+        font-size: 14px;
+        color: var(--primary-color);
+    }
+    .apply-finance-input-wrapper input {
+        width: 100%;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        outline: none;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    .apply-finance-input-wrapper .custom-select {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        outline: none;
+        border: none;
+        background: none;
+        box-shadow: none;
+        font-size: 16px;
+        color: inherit;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .apply-finance-input-wrapper .apply-finance-select-icon {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        right: 10px;
+        bottom: 10px;
+        color: var(--primary-color);
+        text-align: center;
+        line-height: 20px;
+    }
+    .apply-finance-btn {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 16px;
+        line-height: 16px;
+        padding: 10px 25px;
+        border: none;
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    .apply-finance-submit-btn {
+        left: calc(50% + 500px / 2);
+        transform: translateX(-100%);
+    }
+    .apply-finance-back-btn {
+        background-color: transparent;
+        border: solid 2px var(--primary-color);
+        color: var(--primary-color);
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        text-align: center;
+        left: calc(50% - 500px / 2 + 20px);
+    }
+    .apply-finance-section-header {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--primary-color);
+        max-width: 500px;
+        margin: auto;
+        margin-bottom: 25px;
+    }
+    .apply-finance-icon-wrapper {
+        position: relative;
+        float: left;
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .apply-finance-icon-wrapper h3 {
+        position: absolute;
+        right: 0;
+        width: calc(100% - 50px);
+        margin: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        line-height: 25px;
+        font-size: 16px;
+        font-weight: 600;
+    }
+    .apply-finance-icon {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        font-size: 20px;
+        line-height: 40px;
+        color: #71d18a;
+    }
+    .apply-finance-tracker-wrapper {
+        position: relative;
+        width: 500px;
+        margin: auto;
+    }
+    .apply-finance-tracker {
+        position: relative;
+        width: 100%;
+        height: 45px;
+    }
+    .apply-finance-tracker-icon {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 25px;
+        border: solid 2px #71d18a;
+        background-color: white;
+        text-align: center;
+        line-height: 40px;
+        z-index: 2;
+        color: #71d18a;
+    }
+    .apply-finance-tracker-line {
+        position: absolute;
+        width: 100%;
+        height: 21px;
+        top: 0;
+        border-bottom: solid 2px #71d18a;
+    }
+    .apply-finance-tracker-step {
+        position: absolute;
+        width: 50px;
+        height: auto;
+        bottom: -20px;
+        text-align: center;
+        background-color: var(--light-gray);
+        transform: translateX(-50%);
+        padding: 5px;
+        border-radius: 25px;
+        box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.2);
+        z-index: 3;
+    }
+    .apply-finance-tracker-step-pointer {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: solid 10px transparent;
+        border-bottom: solid 10px transparent;
+        border-left: solid 10px var(--light-gray);
+        transform: translateX(-50%) rotate(-90deg);
+        left: 50%;
+        top: -15px;
+    }
+    .apply-finance-tracker-step p {
+        font-size: 12px;
+        line-height: 12px;
+        padding: 0;
+        margin: 0;
+        color: var(--secondary-color);
+    }
+    .apply-finance-required {
+        width: calc(100% - 10px);
+        margin-top: 10px;
+        background-color: var(--primary-color);
+        padding: 5px;
+        border-radius: 5px;
+        color: white;
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .apply-finance-modal-loader {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .apply-finance-modal-wrapper {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        z-index: 1000;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+    .apply-finance-modal-container {
+        position: absolute;
+        width: 100%;
+        max-width: 500px;
+        height: 500px;
+        border-radius: 20px;
+        background-color: white;
+        padding: 20px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .apply-finance-modal-container p {
+        padding: 50px;
+        font-size: 20px;
+        text-align: center;
+        line-height: 35px;
+        color: var(--font-color);
+    }
+    #closeModalBtn {
+        bottom: 30px;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .apply-finance-row {
+            display: block;
+            position: relative;
+            float: left;
+            width: 100%;
+            height: auto;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+        .apply-finance-col {
+            display: block;
+            position: relative;
+            float: left;
+            width: calc(100% - 60px);
+        }
+        .apply-finance-quote-container {
+            display: none !important;
+        }
+        .af-carousel-btn-wrapper {
+            display: none !important;
+        }
+        .apply-finance-submit-btn {
+            width: 140px;
+        }
+    }
+
+    @media only screen and (max-width: 640px) {
+        .apply-finance-wrapper {
+            position: relative;
+            float: left;
+        }
+        .apply-finance-col {
+            width: 100%;
+            padding-right: 0 !important;
+        }
+        .apply-finance-tracker-wrapper {
+            display: none;
+        }
+        .apply-finance-input-wrapper {
+            width: calc(100% - 30px);
+        }
+        .apply-finance-icon-wrapper {
+            margin-bottom: 20px;
+        }
+        .apply-finance-form-section h3 {
+            margin-top: 0px;
+        }
+        .apply-finance-submit-btn {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .apply-finance-back-btn {
+            display: none;
+        }   
+        h1 {
+            padding-right: 0;
+        }
+    }
+
+    /* SPINNER */
+    .lds-roller {
+        display: block;
+        position: absolute;
+        width: 80px;
+        height: 80px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .lds-roller div {
+        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+        transform-origin: 40px 40px;
+    }
+    .lds-roller div:after {
+        content: " ";
+        display: block;
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #fff;
+        margin: -4px 0 0 -4px;
+    }
+    .lds-roller div:nth-child(1) {
+        animation-delay: -0.036s;
+    }
+    .lds-roller div:nth-child(1):after {
+        top: 63px;
+        left: 63px;
+    }
+    .lds-roller div:nth-child(2) {
+        animation-delay: -0.072s;
+    }
+    .lds-roller div:nth-child(2):after {
+        top: 68px;
+        left: 56px;
+    }
+    .lds-roller div:nth-child(3) {
+        animation-delay: -0.108s;
+    }
+    .lds-roller div:nth-child(3):after {
+        top: 71px;
+        left: 48px;
+    }
+    .lds-roller div:nth-child(4) {
+        animation-delay: -0.144s;
+    }
+    .lds-roller div:nth-child(4):after {
+        top: 72px;
+        left: 40px;
+    }
+    .lds-roller div:nth-child(5) {
+        animation-delay: -0.18s;
+    }
+    .lds-roller div:nth-child(5):after {
+        top: 71px;
+        left: 32px;
+    }
+    .lds-roller div:nth-child(6) {
+        animation-delay: -0.216s;
+    }
+    .lds-roller div:nth-child(6):after {
+        top: 68px;
+        left: 24px;
+    }
+    .lds-roller div:nth-child(7) {
+        animation-delay: -0.252s;
+    }
+    .lds-roller div:nth-child(7):after {
+        top: 63px;
+        left: 17px;
+    }
+    .lds-roller div:nth-child(8) {
+        animation-delay: -0.288s;
+    }
+    .lds-roller div:nth-child(8):after {
+        top: 56px;
+        left: 12px;
+    }
+    @keyframes lds-roller {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+  /* CAROUSEL */
+  .af-carousel-btn-wrapper {
+      position: relative;
+      width: 100%;
+      height: 50px;
+  }
+  .af-carousel-btn-inner {
+      position: absolute;
+      width: max-content;
+      height: max-content;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .af-carousel-btn {
+      position: relative;
+      float: left;
+      width: 15px;
+      height: 15px;
+      border-radius: 15px;
+      margin-right: 10px;
+      background-color: var(--secondary-color);
+  }
+  .af-carousel-btn-active {
+      background-color: var(--primary-color);
+  }
+</style>
+
+<div class="apply-finance-wrapper">
+    <div class="apply-finance-container">
+        <div class="apply-finance-row" style="padding-bottom: 50px;">
+            <div class="apply-finance-col" style="padding-right: 50px;">
+                <h1>Apply for up to 100K in under 3 minutes.</h1>
+                <h3 style="border-bottom: solid 1px #c2c2c2; padding-bottom: 20px;">Flexikitch specialises in renting commercial kitchen equipment for restaurant, hospitality and retail businesses, including priority ongoing servicing of your rental equipment.</h3>
+                <div class="apply-finance-icon-wrapper"><i class="fas fa-check apply-finance-icon"></i><h3>Flexible finance options, quick turnaround</h3></div>
+                <div class="apply-finance-icon-wrapper"><i class="fas fa-check apply-finance-icon"></i><h3>Straightforward application process</h3></div>
+                <div class="apply-finance-icon-wrapper"><i class="fas fa-check apply-finance-icon"></i><h3>Join the thousands of other hospitality businesses backed by Flexikitch</h3></div>
+            </div>
+            <div class="apply-finance-col">
+
+                <!-- Section: Carousel -->
+                
+                <!-- Carousel: Item 1 -->
+                <div id="galleryImg1" class="apply-finance-quote-container">
+                    <div class="apply-finance-quote-image apply-finance-quote-image-1"></div>
+                    <div class="apply-finance-quote">
+                        <div class="apply-finance-quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <p>
+                            When we started Hatter, we didn’t have cashflow to get things outright. 
+                            Flexikitch offers flexibility which gave my business options. 
+                            From starting with 1 product, we’ve now got 15-20. Flexikitch reminds 
+                            me of how I run my business, like a family.<br><br>
+                            <span style="color: var(--primary-color);">- Vinnie, Founder, Hatter & the Hare, Bayswater VIC</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Carousel: Item 2 -->
+                <div id="galleryImg2" style="display: none;" class="apply-finance-quote-container">
+                    <div class="apply-finance-quote-image apply-finance-quote-image-2"></div>
+                    <div class="apply-finance-quote">
+                        <div class="apply-finance-quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <p>
+                            Alex's team makes sure everything's serviced, working correctly, that we're not paying too much
+                            It's their personalised service that makes them the best - they'll come out, take measurements, work
+                            out what will fit and what will display the food best, what will help us sell more.<br><br>
+                            <span style="color: var(--primary-color);">- Stephen, Founder, Marketplace Fresh</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Carousel: Item 3 -->
+                <div id="galleryImg3" style="display: none;" class="apply-finance-quote-container">
+                    <div class="apply-finance-quote-image apply-finance-quote-image-3"></div>
+                    <div class="apply-finance-quote">
+                        <div class="apply-finance-quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <p>
+                            Flexikitch understands our business model, they know what is important to us and they make it happen.
+                            Having that two-way relationship creates value for us and we believe that this is key to having a long-term
+                            relationship with all suppliers.<br><br>
+                            <span style="color: var(--primary-color);">- Marinus, Founder, Padre Coffee</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Carousel: Buttons -->
+                <div class="af-carousel-btn-wrapper">
+                    <div class="af-carousel-btn-inner">
+                        <button id="af-galleryBtn1" class="af-carousel-btn af-carousel-btn-active"></button>
+                        <button id="af-galleryBtn2" class="af-carousel-btn"></button>
+                        <button id="af-galleryBtn3" class="af-carousel-btn"></button>
+                    </div>
+                </div>
+              
+            </div>
+        </div>
+        <div class="apply-finance-row">
+            <div class="apply-finance-col">
+                <div class="apply-finance-form-wrapper">
+                    <form>
+                        <div id="applyFormSection1" class="apply-finance-form-section">
+
+                            <div class="apply-finance-tracker-wrapper">
+                                <div class="apply-finance-tracker">
+                                    <div class="apply-finance-tracker-icon"><i class="fas fa-check"></i></div>
+                                    <div class="apply-finance-tracker-icon" style="left: 50%; transform: translateX(-50%); background-color: #71d18a; color: white;"><i class="fas fa-spinner"></i></div>
+                                    <div class="apply-finance-tracker-icon" style="right: 0px;"></div>
+                                </div>
+                                <div class="apply-finance-tracker-line"></div>
+
+                                <div class="apply-finance-tracker-step" style="left: 20px;">
+                                    <div class="apply-finance-tracker-step-pointer"></div>
+                                    <p>Start</p>
+                                </div>
+                                <div class="apply-finance-tracker-step" style="left: 50%;">
+                                    <div class="apply-finance-tracker-step-pointer"></div>
+                                    <p style="color: #71d18a;">Step 1</p>
+                                </div>
+                            </div>
+
+                            <h3>You’re less than 3 minutes away from financing your dream.</h3>
+                            <p class="apply-finance-section-header">Step 1 of 2</p>
+                            <div id="nameInput" class="apply-finance-input-wrapper">
+                                <label for="name">Full Name</label>
+                                <input type="text" name="name" id="name" />
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please enter your Full Name
+                                </div>
+                            </div>
+                            <div id="emailInput" class="apply-finance-input-wrapper">
+                                <label for="email">Email Address</label>
+                                <input type="text" name="email" id="email" />
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please enter a valid Email Address
+                                </div>
+                            </div>
+                            <div id="businessNameInput" class="apply-finance-input-wrapper">
+                                <label for="businessName">Registered Business Name</label>
+                                <input type="text" name="businessName" id="businessName" />
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please enter a Registered Business Name
+                                </div>
+                            </div>
+                            <button class="apply-finance-btn" id="nextBtn">Next Step<i class="fas fa-arrow-right" style="padding-left: 15px;"></i></button>
+                        </div>
+                        
+                        <div id="applyFormSection2" style="display: none;" class="apply-finance-form-section">
+
+                            <div class="apply-finance-tracker-wrapper">
+                                <div class="apply-finance-tracker">
+                                    <div class="apply-finance-tracker-icon"><i class="fas fa-check"></i></div>
+                                    <div class="apply-finance-tracker-icon" style="left: 50%; transform: translateX(-50%);"><i class="fas fa-check"></i></div>
+                                    <div class="apply-finance-tracker-icon" style="right: 0px; background-color: #71d18a; color: white;"><i class="fas fa-spinner"></i></div>
+                                </div>
+                                <div class="apply-finance-tracker-line"></div>
+
+                                <div class="apply-finance-tracker-step" style="left: 20px;">
+                                    <div class="apply-finance-tracker-step-pointer"></div>
+                                    <p>Start</p>
+                                </div>
+                                <div class="apply-finance-tracker-step" style="left: 50%;">
+                                    <div class="apply-finance-tracker-step-pointer"></div>
+                                    <p>Step 1</p>
+                                </div>
+                                <div class="apply-finance-tracker-step" style="right: -30px;">
+                                    <div class="apply-finance-tracker-step-pointer"></div>
+                                    <p style="color: #71d18a;">Step 2</p>
+                                </div>
+                            </div>
+
+                            <h3>You’re less than 2 minutes away from financing your dream.</h3>
+                            <p class="apply-finance-section-header">Step 2 of 2</p>
+                            <div id="abnInput" class="apply-finance-input-wrapper">
+                                <label for="abnOrAcn">ABN or ACN</label>
+                                <input type="text" name="abnOrAcn" id="abnOrAcn" />
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please enter the business ABN or ACN
+                                </div>
+                            </div>
+                            <div id="phoneInput" class="apply-finance-input-wrapper">
+                                <label for="businessPhoneNumber">Phone Number</label>
+                                <input type="text" name="businessPhoneNumber" id="businessPhoneNumber" />
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please enter the business Phone Number
+                                </div>
+                            </div>
+                            <div id="categoryInput" class="apply-finance-input-wrapper">
+                                <label for="businessCategory">Business Category</label>
+                                <i class="fas fa-chevron-down apply-finance-select-icon"></i>
+                                <select class="custom-select" name="businessCategory" id="businessCategory">
+                                    <option value="" selected></option>
+                                    <option value="cafe">Cafe</option>
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="bar">Bar</option>
+                                    <option value="bakery">Bakery</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="catering">Catering</option>
+                                    <option value="food-truck">Food Truck</option>
+                                    <option value="grocery">Grocery Store</option>
+                                    <option value="pub">Pub</option>
+                                    <option value="nightclub">Nightclub</option>
+                                    <option value="coffee-shop">Coffee Shop</option>
+                                    <option value="ice-cream-parlor">Ice Cream Parlor</option>
+                                    <option value="pizzeria">Pizzeria</option>
+                                    <option value="deli">Deli</option>
+                                    <option value="fast-food">Fast Food</option>
+                                    <option value="buffet">Buffet</option>
+                                    <option value="food-court">Food Court</option>
+                                    <option value="brewery">Brewery</option>
+                                    <option value="winery">Winery</option>
+                                    <option value="food-service-provider">Food Service Provider</option>
+                                    <option value="pop-up-restaurant">Pop-up Restaurant</option>
+                                    <option value="sushi-bar">Sushi Bar</option>
+                                    <option value="vegetarian-vegan-restaurant">Vegetarian/Vegan Restaurant</option>
+                                    <option value="juice-bar">Juice Bar</option>
+                                    <option value="fine-dining">Fine Dining</option>
+                                    <option value="family-restaurant">Family Restaurant</option>
+                                    <option value="seafood-restaurant">Seafood Restaurant</option>
+                                    <option value="steakhouse">Steakhouse</option>
+                                    <option value="pub">Pub</option>
+                                    <option value="gastropub">Gastropub</option>
+                                    <option value="tapas-bar">Tapas Bar</option>
+                                    <option value="dessert-shop">Dessert Shop</option>
+                                    <option value="wine-bar">Wine Bar</option>
+                                    <option value="food-market">Food Market</option>
+                                    <option value="cheese-shop">Cheese Shop</option>
+                                    <option value="butcher-shop">Butcher Shop</option>
+                                    <option value="fish-market">Fish Market</option>
+                                    <option value="bakery">Bakery</option>
+                                    <option value="chocolatier">Chocolatier</option>
+                                    <option value="brewpub">Brewpub</option>
+                                    <option value="tearoom">Tearoom</option>
+                                    <option value="diner">Diner</option>
+                                    <option value="food-trailer">Food Trailer</option>
+                                    <option value="artisan-food-producer">Artisan Food Producer</option>
+                                    <option value="organic-food-store">Organic Food Store</option>
+                                    <option value="street-food-vendor">Street Food Vendor</option>
+                                </select>
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please select a Category
+                                </div>
+                            </div>
+                            <div id="financeInput" class="apply-finance-input-wrapper">
+                                <label for="projectedFinanceAmount">Projected Finance Amount</label>
+                                <i class="fas fa-chevron-down apply-finance-select-icon"></i>
+                                <select class="custom-select" name="projectedFinanceAmount" id="projectedFinanceAmount">
+                                    <option value="" selected></option>
+                                    <option value="lessThan10K">Less than 10K</option>
+                                    <option value="10K">10K</option>
+                                    <option value="25K">25K</option>
+                                    <option value="50K">50K</option>
+                                    <option value="75K">75K</option>
+                                    <option value="100K">100K Plus</option>
+                                </select>
+                                <div style="display: none;" class="apply-finance-required">
+                                    Please select a Projected Finance Amount
+                                </div>
+                            </div>
+                            <button id="backBtn" class="apply-finance-btn apply-finance-back-btn"><i class="fas fa-arrow-left"></i></button>
+                            <button id="submitApplicationBtn" class="apply-finance-btn apply-finance-submit-btn">Submit<i class="fas fa-arrow-right" style="padding-left: 15px;"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="financeSubmitLoader" style="display: none;" class="apply-finance-modal-loader">
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div id="financeSubmitModal" style="display: none;" class="apply-finance-modal-wrapper">
+    <div class="apply-finance-modal-container">
+        <p>
+            Your application has been received and you are now one step
+            closer to realizing your dream. One of our friendly team
+            members will be in touch shortly.
+        </p>
+        <button id="closeModalBtn" class="apply-finance-btn">Close</button>
+    </div>
+</div>
+
+<script>
+document.onreadystatechange = function() {
+    if("complete" === document.readyState) {
+        $('form').on('submit', function(event) {
+            event.preventDefault();
+        });
+        $('#nextBtn').on('click', function(event) {
+            goToStep2();
+        });
+        $('#backBtn').on('click', function(event) {
+            goToStep1();
+        });
+        $('#submitApplicationBtn').on('click', function(event) {
+            clickedSubmit();
+        });
+        $('#closeModalBtn').on('click', function(event) {
+            hideModal();
+        });
+        $('.af-carousel-btn').on('click', function(event) {
+            switch($(this).attr('id')){
+              case 'af-galleryBtn1':
+                caroselImage = 1;
+                break;
+              case 'af-galleryBtn2':
+                caroselImage = 2;
+                break;
+              case 'af-galleryBtn3':
+                caroselImage = 3;
+                break;
+            }
+            rotateGallery();
+        });
+        window.setInterval(function(){
+          goToNextCaroselImage();
+          rotateGallery();
+        }, 10000);
+    }
+}
+
+var fullName = null;
+var emailAddress = null;
+var businessName = null;
+
+var abnOrAcn = null;
+var phoneNumber = null;
+var businessCategory = null;
+var financeAmount = null;
+
+var currentStep = 1;
+var caroselImage = 1;
+var isValid = false;
+
+function goToNextCaroselImage() {
+  caroselImage++;
+  if(caroselImage > 3){
+    caroselImage = 1;
+  }
+}
+function rotateGallery() {
+    $('.apply-finance-quote-container').hide();
+    $('.af-carousel-btn').removeClass('af-carousel-btn-active');
+    switch(caroselImage){
+      case 1:
+        $('#galleryImg1').fadeIn();
+        $('#af-galleryBtn1').addClass('af-carousel-btn-active');
+        break;
+      case 2:
+        $('#galleryImg2').fadeIn();
+        $('#af-galleryBtn2').addClass('af-carousel-btn-active');
+        break;
+      case 3:
+        $('#galleryImg3').fadeIn();
+        $('#af-galleryBtn3').addClass('af-carousel-btn-active');
+        break;
+    }
+}
+function goToStep1() {
+    currentStep = 1;
+    setupDOM();
+}
+function goToStep2() {
+    gatherData();
+    validateData();
+    if(isValid){
+        currentStep = 2;
+        setupDOM();
+    }
+}
+function clickedSubmit() {
+    gatherData();
+    validateData();
+    if(isValid){
+        submitData();
+    }
+}
+function setupDOM() {
+    var section1 = $('#applyFormSection1');
+    var section2 = $('#applyFormSection2');
+
+    if(currentStep === 1){
+        section1.show();
+        section2.hide();
+    }
+        
+    if(currentStep === 2){
+        section1.hide();
+        section2.show();
+    }
+}
+function gatherData() {
+    var nameInput = $('#name');
+    var emailInput = $('#email');
+    var businessNameInput = $('#businessName');
+
+    var abnInput = $('#abnOrAcn');
+    var phoneInput = $('#businessPhoneNumber');
+    var categoryInput = $('#businessCategory');
+    var financeInput = $('#projectedFinanceAmount');
+
+    if(currentStep === 1){
+        fullName = nameInput.val();
+        emailAddress = emailInput.val();
+        businessName = businessNameInput.val();
+    }
+
+    if(currentStep === 2){
+        abnOrAcn = abnInput.val();
+        phoneNumber = phoneInput.val();
+        businessCategory = categoryInput.val();
+        financeAmount = financeInput.val();
+    }
+}
+function validateData() {
+    var nameInputError = $('#nameInput .apply-finance-required');
+    var emailInputError = $('#emailInput .apply-finance-required');
+    var businessNameInputError = $('#businessNameInput .apply-finance-required');
+
+    var abnInputError = $('#abnInput .apply-finance-required');
+    var phoneInputError = $('#phoneInput .apply-finance-required');
+    var categoryInputError = $('#categoryInput .apply-finance-required');
+    var financeInputError = $('#financeInput .apply-finance-required');
+
+    var nameInput = $('#name');
+    var emailInput = $('#email');
+    var businessNameInput = $('#businessName');
+
+    var abnInput = $('#abnOrAcn');
+    var phoneInput = $('#businessPhoneNumber');
+    var categoryInput = $('#businessCategory');
+    var financeInput = $('#projectedFinanceAmount');
+
+    isValid = true;
+
+    if(currentStep === 1){
+        if(!nameInput.val().trim()){
+            nameInputError.show();
+            isValid = false;
+        } else {
+            nameInputError.hide();
+        }
+        if(!emailInput.val().trim()){
+            emailInputError.show();
+            isValid = false;
+        } else {
+            emailInputError.hide();
+        }
+        if(!businessNameInput.val().trim()){
+            businessNameInputError.show();
+            isValid = false;
+        } else {
+            businessNameInputError.hide();
+        }
+    }
+
+    if(currentStep === 2){
+        if(!abnInput.val().trim()){
+            abnInputError.show();
+            isValid = false;
+        } else {
+            abnInputError.hide();
+        }
+        if(!phoneInput.val().trim()){
+            phoneInputError.show();
+            isValid = false;
+        } else {
+            phoneInputError.hide();
+        }
+        if(!financeInput.val().trim()){
+            financeInputError.show();
+            isValid = false;
+        } else {
+            financeInputError.hide();
+        }
+        if(!categoryInput.val().trim()){
+            categoryInputError.show();
+            isValid = false;
+        } else {
+            categoryInputError.hide();
+        }
+    }
+}
+function submitData() {
+    if(!isValid){ return; }
+    isLoading();
+    $.ajax({
+      url: 'https://hooks.zapier.com/hooks/catch/15080142/3hg3upw/',
+      method: 'POST',
+      data: {
+        fullName: fullName,
+        emailAddress: emailAddress,
+        businessName: businessName,
+        abnOrAcn: abnOrAcn,
+        phoneNumber: phoneNumber,
+        businessCategory: businessCategory,
+        financeAmount: financeAmount
+      },
+      success: function() {
+        isNotLoading();
+        showModal();
+        $('#submitApplicationBtn').hide();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert('An ERROR has occurred. Please try again later.');
+        console.log('Error sending data');
+        if(jqXHR.status == 429) { // HTTP status 429 is returned when rate limit is exceeded
+            console.log('Rate limit exceeded. Please try again later.');
+        }
+      }
+    });
+}
+function isLoading() {
+    $('#financeSubmitLoader').show();
+}
+function isNotLoading() {
+    $('#financeSubmitLoader').hide();
+}
+function showModal() {
+    $('#financeSubmitModal').show();
+}
+function hideModal() {
+    $('#financeSubmitModal').hide();
+}
+</script>

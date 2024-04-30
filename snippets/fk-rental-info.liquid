@@ -1,0 +1,66 @@
+{% assign weekly_rental = product.variants.first.price %}
+<div class="card dark-card rental-info">
+    <div class="card__header">
+        <h2 class="card__title heading h3">
+            Rent for just <span class="is-red">{{- weekly_rental | times: 0.0545 | divided_by: 4.33 | divided_by: 7 | money -}}&nbsp;per day.</span>
+            <small>Price Excludes GST</small>
+        </h2>
+    </div>
+    <div class="card__section">
+        <div class="fkw-row">
+            <div class="fkw-col-12">
+                <span class="rf-overview">
+                    Discover the perfect blend of flexibility, security, and convenience with Flexikitch’s tailored rental solution, designed to meet the evolving needs of your business. Our rental offerings are packed with unbeatable benefits that empower you to manage your commercial equipment effortlessly, while keeping your business operations flowing seamlessly.
+                </span>
+            </div>
+            <div class="fkw-col-12">
+                <ul class="rental-features">
+                    <li>
+                        <span class="rf-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </span>
+                        <span class="rf-heading">
+                            Upgrade or Downgrade
+                        </span>
+                        <span class="rf-desc">
+                            Enjoy unparalleled flexibility with the ability to upgrade or downgrade your equipment as your business needs change.
+                        </span>
+                    </li>
+                    <li>
+                        <span class="rf-icon">
+                            <i class="bi bi-bag-fill"></i>
+                        </span>
+                        <span class="rf-heading">
+                            Purchase Anytime
+                        </span>
+                        <span class="rf-desc">
+                            Feel free to convert your rental into a purchase whenever it suits your business strategy and financial goals.
+                        </span>
+                    </li>
+                    <li>
+                        <span class="rf-icon">
+                            <i class="bi bi-calendar-check-fill"></i>
+                        </span>
+                        <span class="rf-heading">
+                            Short Minimum Term
+                        </span>
+                        <span class="rf-desc">
+                            Scale your operations up or down without being locked into long-term commitments with our Short Minimum Term.
+                        </span>
+                    </li>
+                    <li>
+                        <span class="rf-icon">
+                            <i class="bi bi-tools"></i>
+                        </span>
+                        <span class="rf-heading">
+                            Breakdown Warranty
+                        </span>
+                        <span class="rf-desc">
+                            In the unlikely event of equipment failure, we’ve got you covered, minimizing downtime and keeping your business operations running smoothly.
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

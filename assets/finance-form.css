@@ -1,0 +1,496 @@
+h1.finance-form {
+  font-size: 40px;
+  font-weight: bold;
+  color: #424242;
+  text-align: center;
+  margin-top: 30px;
+}
+h1.finance-form span {
+  color: #f26449;
+}
+
+#AccountNeeded {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px 0 60px 0;
+  width: 100%;
+}
+#AccountNeeded p {
+  width: auto;
+}
+#AccountNeeded p a {
+  color: #f26449;
+  font-weight: bold;
+}
+
+#FinanceForm {
+  display: flex;
+  width: 100%;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 50px 0;
+}
+#FinanceForm input::placeholder, #FinanceForm select::placeholder, #FinanceForm textarea::placeholder {
+  opacity: 0.4;
+}
+#FinanceForm .finance-form-wrap {
+  max-width: 1480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+#FinanceForm .finance-form-wrap .form-progress {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.08), -4px -4px 6px 0 rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+  border: solid 2px #FFF;
+  margin-bottom: 30px;
+}
+#FinanceForm .finance-form-wrap .form-progress .fp-marker {
+  width: 0%;
+  background-color: #f26449;
+  background-image: linear-gradient(#f26449, #f08671);
+  display: flex;
+  height: 20px;
+  transition: width 0.5s ease-in-out;
+}
+#FinanceForm .finance-form-wrap .form-progress .fp-msg {
+  position: absolute;
+  color: #FFF;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: bold;
+  cursor: default;
+  left: calc(50% - 40px);
+  text-transform: uppercase;
+  color: #424242;
+}
+#FinanceForm .finance-form-wrap .form-elements {
+  display: flex;
+  width: 100%;
+  color: #424242;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section h3 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section.ff-active {
+  display: flex;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-content p {
+  font-size: 15px;
+  margin-bottom: 5px;
+  text-align: center;
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-notice {
+  width: 100%;
+  font-size: 15px;
+  border: dashed 5px rgba(242, 100, 73, 0.5);
+  background: rgba(242, 100, 73, 0.1);
+  margin: 15px 0;
+  border-radius: 15px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-notice h4 {
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-notice p {
+  font-size: 15px;
+  margin-bottom: 5px;
+  text-align: center;
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .form-submit {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-review {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-bottom: 50px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-review h3 {
+  text-transform: capitalize;
+  text-align: left;
+  color: #f26449;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-review p {
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-review p strong {
+  text-transform: capitalize;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-review p i {
+  text-transform: capitalize;
+  color: #888;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group {
+  position: relative;
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-grow: 1;
+  margin-bottom: 15px;
+  border-bottom: solid 2px #f26449;
+  padding-bottom: 20px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .d-label {
+  position: absolute;
+  top: -25px;
+  left: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .d-label span {
+  color: #f26449;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs label {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  cursor: pointer;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs label:hover {
+  color: #f26449;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs label input {
+  display: flex;
+  width: auto;
+  margin-left: 10px;
+  cursor: pointer;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs label input.inValid {
+  border: solid 2px #ff9800;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs label input::file-selector-button {
+  background: #f26449;
+  color: white;
+  font-size: 12px;
+  height: 25px;
+  padding: 0 10px;
+  border: solid 1px #c04832;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .f-docs label input::file-selector-button:hover {
+  background: white;
+  color: #f26449;
+  border-color: #f26449;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .docs-type {
+  display: flex;
+  width: auto;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: none;
+  border-bottom: solid 2px #EEEEEE;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section #doc-select .doc-group .docs-type:focus {
+  outline: none;
+  border: none;
+  border-bottom: solid 2px rgba(242, 100, 73, 0.3);
+  box-shadow: none;
+  border-radius: 0;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-grow: 1;
+  margin-bottom: 15px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder {
+  display: flex;
+  position: relative;
+  padding-left: 40px;
+  width: 100%;
+  cursor: pointer;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border: solid 2px #d8d8d8;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder .checkmark:hover {
+  background-color: #ccc;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder input:checked ~ .checkmark {
+  background-color: #f26449;
+  border-color: #ce513a;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-checkbox-holder input:checked ~ .checkmark:after {
+  display: block;
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0 10px;
+  position: relative;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder label {
+  display: flex;
+  font-style: italic;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .fNotice {
+  position: absolute;
+  right: 17px;
+  top: 30px;
+  font-size: 11px;
+  color: #ff9800;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup {
+  display: flex;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup .fNotice {
+  top: 0;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup #abn_lookup {
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup #abn_lookup.valid {
+  color: #8bc34a;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup #abn_lookup.notvalid {
+  color: #e91e63;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup .val-abn {
+  width: 150px;
+  display: flex;
+  border: solid 2px;
+  border-radius: 20px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: bold;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .abn-lookup .val-abn:disabled {
+  opacity: 0.5;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .ff-input {
+  display: flex;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: none;
+  border-bottom: solid 2px #EEEEEE;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .ff-input.inValid {
+  border: solid 2px #ff9800;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .ff-input:focus {
+  outline: none;
+  border: none;
+  border-bottom: solid 2px rgba(242, 100, 73, 0.3);
+  box-shadow: none;
+  border-radius: 0;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder.ff-radio-holder {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder.ff-radio-holder .fNotice {
+  top: 20px;
+  width: auto !important;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder.ff-radio-holder.inValid {
+  border: solid 2px #ff9800;
+  margin-bottom: 10px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder.ff-radio-holder label {
+  font-style: normal;
+  display: flex;
+  margin-right: 10px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder.ff-radio-holder label input {
+  margin-right: 3px;
+  accent-color: #f26449;
+  width: 20px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder.ff-radio-holder span {
+  display: flex;
+  font-style: italic;
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder textarea {
+  min-height: 100px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder #ff-owner-holder {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder #ff-owner-holder .ff-owner {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 7px;
+  width: 100%;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder #ff-owner-holder .ff-owner input {
+  width: calc(50% - 40px);
+  margin-right: 10px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder #ff-owner-holder .ff-owner button {
+  display: flex;
+  width: 38px;
+  height: 38px;
+  background-color: #888888;
+  color: #FFF;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .ff-owner-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .ff-owner-actions button {
+  display: flex;
+  width: auto;
+  height: 38px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px #888;
+  padding: 0 10px;
+  border-radius: 10px;
+  color: #888;
+  margin-right: 65px;
+  font-weight: 500;
+}
+#FinanceForm .finance-form-wrap .form-elements .ff-section .ff-form-group .ff-input-holder .ff-owner-actions button:hover {
+  border-color: #f26449;
+  color: #f26449;
+}
+#FinanceForm .finance-form-wrap .form-actions {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 50px 0;
+  order: 4;
+  position: relative;
+}
+#FinanceForm .finance-form-wrap .form-actions .isRequired {
+  position: absolute;
+  bottom: -40px;
+  right: 0;
+  cursor: default;
+}
+#FinanceForm .ff-btn {
+  display: inline-flex;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 16px 80px;
+  min-height: 56px;
+  background: #f26449;
+  color: #fff;
+  border-radius: 40px;
+  box-shadow: 6px 6px 8px 0 rgba(0, 0, 0, 0.08), -4px -4px 6px 0 rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+}
+#FinanceForm .ff-btn:disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+#FinanceForm .ff-btn.ff-sec-btn {
+  background: #888888;
+}

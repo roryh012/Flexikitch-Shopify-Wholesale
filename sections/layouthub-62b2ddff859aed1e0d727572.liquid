@@ -1,0 +1,104 @@
+{% comment %}
+ LayoutHub (https://layouthub.com)
+ You SHOULD NOT modify source code in this page because
+ It is automatically generated from LayoutHub
+ {% endcomment %} 
+ 
+ <div class="lh-sections-wrapper" data-id="62b2ddff859aed1e0d727572" data-type="blog">
+<section id="" data-section-id="FbvtMUXqYe" data-section="blog-list-2" data-dev="le-vi" data-lh-page-id="414" data-lh-page-name="Blog List - Ozzy" data-layouthub="section">  
+ {%- assign tpl =  template | replace: '.', ' ' | truncatewords: 1, '' | handle  -%}
+        {% assign string_cate = blog.title | append: "|" | append: blog.handle %}
+        {%- if tpl != 'blog' and blog == blank -%}
+           
+            {% assign handle_blog = 'news' %}
+           
+          {% assign blog = blogs[handle_blog] %}
+        {%- endif -%}
+        {% assign list_cate = string_cate | split: "," %}<div class="lh-wrapper lh-blog-section" data-blog-handle="">
+  <include data-live-bl_background data-live-b_title data-live-show_count data-live-b_post data-live-title_full data-name="content" data-id="1">  
+ <div class="lh-banner" style="background: url('https://cdn.shopify.com/s/files/1/0609/9543/6701/t/2/assets/coffee-machine-2_EpFV.jpg?v=1655890036352') center center/cover no-repeat scroll;" data-hub-attr-state="class%3D%22lh-banner%22%20style%3D%22background%3A%20url('%257B%253A%257Bsection.settings.bl_background%257D%253A%257D')%20center%20center%2Fcover%20no-repeat%20scroll%3B%22"  data-hub-attr-bl_background data-lh-image-helper="bl_background">
+  <div class="lh-banner-content">
+    <h3  data-lhi="b_title" data-lh-lang>{{'FbvtMUXqYe.lh_2q_title' | t }}</h3>
+     
+    <p><span class="lh-count-art">{{ blog.articles_count }}</span> <span  data-lhi="b_post" data-lh-lang>{{'FbvtMUXqYe.lh_2q_post' | t }}</span></p>
+     
+  </div>
+</div>
+<div class="lh-container">
+  <div class="lh-row">
+    <div class="lh-col-md-12">
+      <div class="lh-article-grid full_text" data-hub-attr-state="class%3D%22lh-article-grid%20%257B%253A%257Bsection.settings.title_full%257D%253A%257D%22"  data-hub-attr-title_full >
+        {%- if blog != blank -%}
+      {%-paginate blog.articles by 3-%}
+      <div class="lh-item-blog">
+      <div class="lh-row">
+        {%- for item in blog.articles -%}
+        <div class="lh-item-article">
+          <div class="lh-article-image">
+            <a href="{{item.url}}">
+               
+                <img src="{{item.image | img_url : '380x278_crop_center'}}" alt="{{item.title}}">
+               
+            </a>
+          </div>
+          <div class="lh-article-info">
+          <h5 class="lh-article-title">
+              <a href="{{item.url}}">{{item.title}}</a>
+          </h5>
+          <div class="lh-article-head">
+            By <span class="lh-article-author">{{ item.author }}</span>
+            <span class="lh-elippse"></span>
+            <span class="lh-article-date">{{item.published_at | date: "%d/%m/%y" }}</span>
+          </div>
+          <div class="lh-article-excerpt">
+            {% if item.excerpt.size > 0 %}
+            <p>
+              {{ item.excerpt | strip_html | truncate : 150 }}
+            </p>
+            {% else %}
+            <p>
+              {{ item.content | strip_html | truncate : 150 }}
+            </p>
+            {% endif %}
+          </div>
+          <a href="{{item.url}}" class="lh-readmore-btn">Read More</a>
+        </div>
+        </div>
+        {%- endfor -%}
+      </div>
+    </div>
+        <div class="lh-page-numbers">
+          <ul class="lh-pagination_pages">
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+              <li class="lh-item-pagination">
+                <a href="{{ part.url }}" class="lh-numbers">{{ part.title }}</a>
+              </li>
+              {%- else -%}
+                {%- if part.title == paginate.current_page -%}
+                  <li class="lh-item-pagination"><span class="lh-numbers current">{{ part.title }}</span></li>
+                {%- else -%}
+                  <li class="lh-item-pagination"><span class="lh-numbers">{{ part.title }}</span></li>
+                {%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endpaginate -%}
+    {%- else -%}
+      <div class="lh-message" >
+        <p>Empty content. Please select category to preview</p>
+        <div class="lh-wrap-btn" >
+          <a href="javascript:void(0)" >Select category</a>
+        </div>
+      </div>
+    {%- endif -%}</div>
+    </div>
+  </div>
+</div>  </include></div>
+ 
+  </section>
+</div>
+ {%schema%} 
+{"locales":{"en":{"FbvtMUXqYe":{"lh_2q_title":"Articles","lh_2q_post":"Hospitality and retail stories, news, latest openings and more."}}},"name":"Articles"}
+ {%endschema%}

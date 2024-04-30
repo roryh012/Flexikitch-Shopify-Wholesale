@@ -1,0 +1,2175 @@
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<style>
+  :root {
+      --primary-color: #f06056;
+      --secondary-color: #6c757d;
+      --background-color: #1e2e35;
+      --font-color: #333;
+      --light-gray: #f8f9fa;
+      --green: #28a745;
+  }
+  body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+  .apply-finance-wrapper h1 {
+      float: left;
+      font-size: 55px;
+      font-weight: 700;
+      color: white;
+      width: 100%;
+      margin: 0;
+      margin-top: 230px;
+      padding: 0;
+      text-shadow: 0 0 15px rgba(0,0,0,0.5);
+  }
+  .apply-finance-wrapper h2 {
+      float: left;
+      width: 100%;
+      font-size: 34px;
+      font-weight: 400;
+      margin: 0;
+      padding: 0;
+      color: var(--primary-color);
+  }
+  .apply-finance-wrapper h3 {
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-size: 25px;
+      font-weight: 400;
+      line-height: 35px;
+  }
+  .apply-finance-wrapper p {
+      margin: 0;
+      padding: 0;
+      color: white;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+  }
+  .apply-finance-wrapper ul {
+      color: white;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+  }
+  .apply-finance-wrapper .copy-heading {
+      float: left;
+      color: white;
+      font-size: 20px;
+      line-height: 35px;
+      font-weight: 400;
+      width: 100%;
+  }
+  .apply-finance-wrapper .new-page-section {
+      position: relative;
+      float: left;
+      width: 100%;
+      padding: 30px 0;
+      margin-top: 30px;
+      border-top: solid 1px black;
+      text-align: center;
+  }
+  .apply-finance-wrapper {
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
+      background-color: var(--background-color);
+      padding-bottom: 50px;
+  }
+  .apply-finance-wrapper .page-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+  }
+  .apply-finance-wrapper .page-row-hero-banner {
+      position: relative;
+      width: 100%;
+      height: 600px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+  }
+  .apply-finance-wrapper .page-col-hero-banner {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 15px;
+  }
+  .apply-finance-wrapper .hero-overlay-filter {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0,0,0,0.8), transparent);
+      mix-blend-mode: multiply;
+  }
+  .apply-finance-wrapper .hero-quote {
+      position: absolute;
+      width: 100%;
+      max-width: 550px;
+      bottom: 0px;
+      font-size: 16px;
+      line-height: 25px;
+      padding-bottom: 30px;
+      color: white;
+      border-bottom: solid 2px var(--primary-color);
+  }
+  .apply-finance-wrapper .hero-customer {
+      font-size: 14px;
+      color: var(--primary-color);
+      padding-top: 20px;
+  }
+  .apply-finance-wrapper .quote-marks {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      left: -60px;
+      top: -25px;
+      background-image: url({{ 'apply-finance-v2-quote-marks.svg' | asset_url }});
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+  }
+  .apply-finance-wrapper .page-row {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: stretch;
+      align-content: flex-start;
+  }
+  .apply-finance-wrapper .page-col {
+      flex: 1;
+      padding: 15px;
+      position: relative;
+  }
+  .apply-finance-wrapper .banner-slider-btn-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+  }
+  .apply-finance-wrapper .banner-slider-container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+  }
+  .apply-finance-wrapper .banner-slider-btn-container {
+      width: max-content;
+      margin: 0 auto;
+      margin-top: 15px;
+      margin-bottom: 0;
+  }
+  .apply-finance-wrapper .banner-slider-container-col {
+      float: right;
+      width: 50%;
+  }
+  .apply-finance-wrapper .banner-slider-btn {
+      border: none;
+      padding: 0;
+      margin: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: solid 2px var(--primary-color);
+      margin-right: 5px;
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .slider-btn-active {
+      background-color: var(--primary-color);
+  }
+  .apply-finance-wrapper .key-points-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+  }
+  .apply-finance-wrapper .key-point-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      margin-bottom: 15px;
+  }
+  .apply-finance-wrapper .key-point-icon-container {
+      position: relative;
+      float: left;
+      width: 50px;
+      height: 50px;
+      background-color: rgba(0,0,0,0.5);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 25px;
+      border-radius: 25px;
+      margin-top: 0px;
+  }
+  .apply-finance-wrapper .key-point-copy {
+      position: relative;
+      float: right;
+      width: calc(100% - 75px);
+  }
+  .apply-finance-wrapper .how-it-works-wrapper {
+      position: absolute;
+      bottom: 15px;  
+      width: calc(100% - 30px);
+      height: auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+  }
+  .apply-finance-wrapper .card-head {
+      position: relative;
+      float: left;
+      width: 100%;
+      padding: 15px;
+      border-bottom: solid 2px var(--background-color);
+  }
+  .apply-finance-wrapper .card-body {
+      position: relative;
+      float: left;
+      width: 100%;
+      padding: 15px;
+  }
+  .apply-finance-wrapper .card-point-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      margin-bottom: 30px;
+  }
+  .apply-finance-wrapper .card-point-wrapper:last-child {
+      margin-bottom: 0;
+  }
+  .apply-finance-wrapper .card-point-icon-container {
+      position: relative;
+      float: left;
+      width: 40px;
+      height: 40px;
+      background-color: var(--background-color);
+      border-radius: 20px;
+      margin-top: 0px;
+  }
+  .apply-finance-wrapper .card-point-icon {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: 100%;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 20px;
+  }
+  .apply-finance-wrapper .card-point-copy-container {
+      position: relative;
+      float: right;
+      width: calc(100% - 60px);
+  }
+  .apply-finance-wrapper .application-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: auto;
+      background-color: black;
+      border-radius: 15px;
+  }
+  .apply-finance-wrapper .page {
+      position: relative;
+      float: left;
+      width: 100%;
+      min-height: 750px;
+      padding: 30px;
+  }
+  .apply-finance-wrapper .current-step-inidcator-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+  }
+  .apply-finance-wrapper .current-indicator-line {
+      position: absolute;
+      width: calc(100% - 35px);
+      height: 2px;
+      background-color: var(--green);
+      top: 13px;
+      left: 15px;
+  }
+  .apply-finance-wrapper .step-wrapper {
+      position: relative;
+      float: left;
+  }
+  .apply-finance-wrapper .step-circle {
+      position: relative;
+      float: left;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background-color: black;
+      border: solid 2px var(--green);
+      margin-left: 50%;
+      transform: translateX(-50%);
+  }
+  .apply-finance-wrapper .step-completed {
+      background-image: url({{ 'apply-finance-v2-checkmark-green.svg' | asset_url }});
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 15px;
+  }
+  .apply-finance-wrapper .step-active {
+      background-color: var(--green);
+  }
+  .apply-finance-wrapper .step-pointer {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: var(--green);
+      top: 29px;
+      left: calc(50% - 11px);
+      transform: rotate(45deg);
+      border: solid 1px black;
+  }
+  .apply-finance-wrapper .step-copy {
+      position: relative;
+      float: left;
+      width: auto;
+      height: auto;
+      background-color: var(--background-color);
+      font-size: 12px;
+      line-height: 12px;
+      padding: 5px;
+      padding-left: 10px;
+      clear: both;
+      border-radius: 10px;
+      padding-right: 10px;
+      color: var(--green);
+      margin-top: 5px;
+  }
+  .apply-finance-wrapper .step-copy-active {
+      color: white;
+      background-color: var(--green);
+  }
+  .apply-finance-wrapper .application-chaser {
+      color: white;
+      font-size: 25px;
+      line-height: 35px;
+      margin-bottom: 15px;
+      float: left;
+      width: 100%;
+  }
+  .apply-finance-wrapper .step {
+      color: var(--secondary-color);
+      border-bottom: solid 1px var(--secondary-color);
+  }
+  .apply-finance-wrapper .input-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      margin-bottom: 15px;
+      margin-top: 15px;
+  }
+  .apply-finance-wrapper .input-wrapper label {
+      position: relative;
+      float: left;
+      width: 100%;
+      font-size: 13px;
+      line-height: 13px;
+      color: var(--primary-color);
+      margin-bottom: 5px;
+  }
+  .apply-finance-wrapper .input-wrapper input {
+      position: relative;
+      float: left;
+      width: calc(100% - 15px);
+      border: none;
+      height: 40px;
+      border-radius: 5px;
+      outline: none;
+      padding-left: 15px;
+      font-size: 16px;
+      line-height: 16px;
+      color: var(--font-color);
+      margin-top: 5px;
+      transition: border-color 0.3s ease;
+      border: 2px solid white;
+  }
+  .apply-finance-wrapper .input-wrapper input:focus {
+      border-color: var(--green);
+      outline: none;
+      box-shadow: 0 0 8px rgba(40,167,69,1);
+  }
+  .apply-finance-wrapper .input-wrapper select {
+      position: relative;
+      float: left;
+      width: calc(100% - 15px);
+      border: none;
+      height: 40px;
+      border-radius: 5px;
+      outline: none;
+      padding-left: 15px;
+      font-size: 16px;
+      line-height: 16px;
+      color: var(--font-color);
+      margin-top: 5px;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background: url({{ 'apply-finance-v2-chevron-down.svg' | asset_url }}) no-repeat right 15px center;
+      background-color: white;
+      background-size: 25px;
+      padding-right: 25px;
+  }
+  .apply-finance-wrapper .input-error {
+      position: relative;
+      float: left;
+      width: calc(100% - 18px);
+      font-size: 12px;
+      line-height: 12px;
+      color: white;
+      margin-top: 10px;
+      background-color: var(--primary-color);
+      padding: 10px;
+      border-radius: 5px;
+  }
+  .apply-finance-wrapper .terms {
+      position: relative;
+      float: left;
+      width: 100%;
+      color: var(--secondary-color);
+      font-size: 12px;
+      margin-top: 40px;
+  }
+  .apply-finance-wrapper .prev-btn {
+      float: left;
+      width: 60px;
+      padding: 12px;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      margin-top: 30px;
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .next-btn {
+      width: 200px;
+      padding: 12px;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      margin-left: 50%;
+      margin-top: 30px;
+      transform: translateX(-50%);
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .submit-btn {
+      float: right;
+      width: 200px;
+      padding: 12px;
+      font-size: 20px;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 30px;
+      color: white;
+      margin-top: 30px;
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .next-btn:hover {
+      box-shadow: 0px 0px 30px 0px rgba(240,96,86,0.95);
+  }
+  .apply-finance-wrapper .prev-btn:hover {
+      box-shadow: 0px 0px 30px 0px rgba(240,96,86,0.95);
+  }
+  .apply-finance-wrapper .submit-btn:hover {
+      box-shadow: 0px 0px 30px 0px rgba(240,96,86,0.95);
+  }
+  .apply-finance-wrapper .our-equipment-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+  }
+  .apply-finance-wrapper .equipment-icon {
+      position: relative;
+      float: left;
+      width: calc(100% / 3);
+      height: 120px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 60px;
+  }
+  .apply-finance-wrapper .equipment-icon p {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+  }
+  .apply-finance-wrapper .key-collections-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: auto;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+  }
+  .apply-finance-wrapper .key-collections-wrapper .card-body {
+      padding: 0;
+      width: 100%;
+  }
+  .apply-finance-wrapper .key-collections-wrapper .copy-heading {
+      float: left;
+      width: auto;
+  }
+  .apply-finance-wrapper .collection-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: auto;
+      border-bottom: solid 1px var(--background-color);
+      padding: 10px;
+      padding-left: 15px;
+  }
+  .apply-finance-wrapper .collection-head {
+      position: relative;
+      float: left;
+      width: 100%;
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .collection-head:hover .copy-heading {
+      color: var(--primary-color);
+  }
+  .apply-finance-wrapper .tick-icon {
+      position: relative;
+      float: left;
+      width: 35px;
+      height: 35px;
+      background-color: black;
+      background-image: url({{ 'apply-finance-v2-checkmark.svg' | asset_url }});
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 15px;
+      margin-right: 15px;
+      border-radius: 50%;
+  }
+  .apply-finance-wrapper .expand-icon {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      width: 25px;
+      height: 25px;
+      transform: translateY(-50%);
+      text-align: center;
+      color: white;
+      font-size: 16px;
+      line-height: 25px;
+  }
+  .apply-finance-wrapper .collection-body {
+      position: relative;
+      float: left;
+      width: 100%;
+      padding: 15px;
+      padding-top: 0;
+  }
+  .apply-finance-wrapper .collection-body p {
+      width: 100%;
+      margin-top: 10px;
+      padding-left: 35px;
+  }
+  .apply-finance-wrapper .faq-wrapper {
+      width: 100%;
+      max-width: 550px;
+      margin: 0 auto;
+  }
+  .apply-finance-wrapper .faq-container {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: auto;
+      border-top: solid 1px var(--secondary-color);
+      padding-top: 10px;
+      padding-bottom: 10px;
+  }
+  .apply-finance-wrapper .faq-head {
+      position: relative;
+      float: left;
+      width: 100%;
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .faq-head:hover .copy-heading {
+      color: var(--primary-color);
+  }
+  .apply-finance-wrapper .faq-body {
+      position: relative;
+      float: left;
+      width: 100%;
+      padding-top: 15px;
+  }
+  .apply-finance-wrapper .our-partners-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: auto;
+      background-color: white;
+      border-radius: 15px;
+      overflow: hidden;
+  }
+  .apply-finance-wrapper .partner-logo {
+      position: relative;
+      float: left;
+      width: calc(100% / 6);
+      height: 100px;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+  }
+  .apply-finance-wrapper .finance-calculator-wrapper {
+      position: absolute;
+      width: 100%;
+      max-width: calc(50% - 105px);
+      background-color: rgba(255,255,255,0.9);
+      top: -415px;
+      right: 30px;
+      border-radius: 15px;
+      padding: 30px;
+      padding-top: 15px;
+      box-shadow: 0 0 10px 0 rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(calc(100% + 200px));
+      transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  }
+  .apply-finance-wrapper .finance-calculator-wrapper.active {
+      opacity: 1;
+      transform: translateY(0);
+  }
+  .apply-finance-wrapper .finance-calculator-wrapper .copy-heading {
+      display: block;
+      margin-left: -30px;
+      width: calc(100% + 30px);
+      padding-bottom: 10px;
+      padding-left: 30px;
+      border-bottom: solid 1px var(--green);
+  }
+  .apply-finance-wrapper .dial-container {
+      position: relative;
+      float: left;
+      width: 100%;
+      height: 44px;
+      margin-top: 30px;
+      margin-bottom: 30px;
+  }
+  .apply-finance-wrapper .dial-line {
+      position: absolute;
+      width: 100%;
+      height: 5px;
+      background-color: var(--green);
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      border-radius: 3px;
+  }
+  .apply-finance-wrapper .dial-knob {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background-color: white;
+      border-radius: 50%;
+      border: solid 2px var(--green);
+      cursor: ew-resize;
+  }
+  .apply-finance-wrapper .dial-knob:hover {
+      box-shadow: 0px 0px 30px 0px rgba(40,167,69,0.95);
+  }
+  .apply-finance-wrapper .figures-container {
+      position: relative;
+      float: left;
+      width: 100%;
+  }
+  .apply-finance-wrapper .calc-input-wrapper {
+      position: relative;
+      float: left;
+      width: 100%;
+      margin-bottom: 15px;
+      padding-bottom: 12px;
+      border-bottom: solid 1px white;
+  }
+  .apply-finance-wrapper .calc-input-wrapper:last-child {
+      margin-bottom: 0;
+  }
+  .apply-finance-wrapper .calc-input-wrapper:first-child {
+      border-bottom: solid 2px var(--green);
+  }
+  .apply-finance-wrapper .calc-input-wrapper label {
+      display: block;
+      float: left;
+      color: var(--green);
+      width: 200px;
+  }
+  .apply-finance-wrapper .calc-input-wrapper input {
+      width: calc(100% - 230px);
+      border: none;
+      height: 20px;
+      outline: none;
+      background-color: transparent;
+      font-size: 16px;
+      line-height: 16px;
+      color: var(--font-color);
+  }
+  .apply-finance-wrapper .calc-input-wrapper select {
+      width: calc(100% - 230px);
+      border: none;
+      height: 20px;
+      outline: none;
+      background-color: transparent;
+      font-size: 16px;
+      line-height: 16px;
+      color: var(--font-color);
+  }
+  .apply-finance-wrapper .calc-input-wrapper p {
+      display: block;
+      float: left;
+      color: var(--green);
+      width: 20px;
+      margin: 0;
+      padding: 0;
+  }
+  #financialCalcRentalInput {
+      color: var(--green);
+      cursor: default;
+  }
+  #financialCalcCapitalInput {
+      font-size: 20px;
+  }
+  .apply-finance-wrapper .finance-calculator-btn {
+      position: absolute;
+      top: -75px;
+      right: 30px;
+      border: none;
+      padding: 13px 15px;
+      font-size: 16px;
+      background-color: black;
+      color: var(--primary-color);
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+  }
+  .apply-finance-wrapper .finance-calculator-btn:hover {
+      box-shadow: 0px 0px 30px 0px rgba(240,96,86,0.95);
+  }
+  .apply-finance-wrapper .close-finance-calculator {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      border: none;
+      background-color: black;
+      border-radius: 15px;
+      background-image: url({{ 'apply-finance-v2-close.svg' | asset_url }});
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 14px;
+      padding: 0;
+  }
+  .apply-finance-wrapper .close-finance-calculator:hover {
+      background-color: var(--primary-color);
+  }
+  .apply-finance-modal-loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      z-index: 1000;
+      background-color: rgba(0, 0, 0, 0.5);
+  }
+  .apply-finance-modal-wrapper {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      z-index: 1000;
+      background-color: rgba(0, 0, 0, 0.5);
+  }
+  .apply-finance-modal-container {
+      position: absolute;
+      width: 100%;
+      max-width: 500px;
+      height: 500px;
+      border-radius: 20px;
+      background-color: white;
+      padding: 20px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .apply-finance-modal-container p {
+      padding: 50px;
+      font-size: 20px;
+      text-align: center;
+      line-height: 35px;
+      color: var(--font-color);
+  }
+  .apply-finance-btn {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 16px;
+      padding: 10px 25px;
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+  }
+  #closeModalBtn {
+      bottom: 30px;
+  }
+  .collection-body {
+      display: none;
+  }
+  .page-2 {
+      display: none;
+  }
+  .faq-body {
+      display: none;
+  }
+  .input-error {
+      display: none;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+      .apply-finance-wrapper h1 {
+        line-height: 55px;
+        margin-top: 300px;
+      }
+      .apply-finance-wrapper h2 {
+        line-height: 35px;
+        margin-top: 15px;
+      }
+      .apply-finance-wrapper {
+          position: relative;
+          float: left;
+          width: 100%;
+          height: 100%;
+      }
+      .apply-finance-wrapper .page-col-hero-banner {
+          position: relative;
+          width: calc(100% - 60px);
+          padding-left: 30px;
+          padding-right: 30px;
+      }
+      .apply-finance-wrapper .page-row-hero-banner {
+          background-position: center !important;
+      }
+      .apply-finance-wrapper .quote-marks {
+          display: none;
+      }
+      .apply-finance-wrapper .hero-quote {
+          display: none;
+      }
+      .apply-finance-wrapper .page-container {
+          display: block;
+          float: left;
+          width: 100%;
+          padding-left: 30px;
+          padding-right: 30px;
+      }
+      .apply-finance-wrapper .page-row {
+          display: block;
+          float: left;
+          width: 100%;
+          padding: 0;
+      }
+      .apply-finance-wrapper .page-col {
+          display: block;
+          float: left;
+          width: 100%;
+          padding: 0;
+      }
+      .apply-finance-wrapper .banner-slider-btn-wrapper {
+          display: none;
+      }
+      .apply-finance-wrapper .finance-calculator-wrapper {
+          display: none;
+      }
+      .apply-finance-wrapper .finance-calculator-btn {
+          display: none;
+      }
+      .apply-finance-wrapper .key-points-wrapper {
+          margin-top: 30px;
+          margin-bottom: 30px;
+      }
+      .apply-finance-wrapper .how-it-works-wrapper {
+          position: relative;
+          float: left;
+          width: 100%;
+          bottom: auto;
+          margin-bottom: 30px;
+      }
+      .apply-finance-wrapper .our-equipment-wrapper {
+          margin-bottom: 30px;
+      }
+      .apply-finance-wrapper .key-collections-wrapper {
+          margin-bottom: 30px;
+      }
+      .apply-finance-wrapper .collection-wrapper {
+          width: calc(100% - 25px);
+      }
+      .apply-finance-wrapper .collection-body {
+          width: calc(100% - 30px);
+      }
+      .apply-finance-wrapper .expand-icon {
+        display: none;
+      }
+      .apply-finance-wrapper .partner-logo {
+        width: calc(100% / 3);
+        height: 70px;
+      }
+  }
+  
+  /* SPINNER */
+  .lds-roller {
+      display: block;
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+  }
+  .lds-roller div {
+      animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      transform-origin: 40px 40px;
+  }
+  .lds-roller div:after {
+      content: " ";
+      display: block;
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #fff;
+      margin: -4px 0 0 -4px;
+  }
+  .lds-roller div:nth-child(1) {
+      animation-delay: -0.036s;
+  }
+  .lds-roller div:nth-child(1):after {
+      top: 63px;
+      left: 63px;
+  }
+  .lds-roller div:nth-child(2) {
+      animation-delay: -0.072s;
+  }
+  .lds-roller div:nth-child(2):after {
+      top: 68px;
+      left: 56px;
+  }
+  .lds-roller div:nth-child(3) {
+      animation-delay: -0.108s;
+  }
+  .lds-roller div:nth-child(3):after {
+      top: 71px;
+      left: 48px;
+  }
+  .lds-roller div:nth-child(4) {
+      animation-delay: -0.144s;
+  }
+  .lds-roller div:nth-child(4):after {
+      top: 72px;
+      left: 40px;
+  }
+  .lds-roller div:nth-child(5) {
+      animation-delay: -0.18s;
+  }
+  .lds-roller div:nth-child(5):after {
+      top: 71px;
+      left: 32px;
+  }
+  .lds-roller div:nth-child(6) {
+      animation-delay: -0.216s;
+  }
+  .lds-roller div:nth-child(6):after {
+      top: 68px;
+      left: 24px;
+  }
+  .lds-roller div:nth-child(7) {
+      animation-delay: -0.252s;
+  }
+  .lds-roller div:nth-child(7):after {
+      top: 63px;
+      left: 17px;
+  }
+  .lds-roller div:nth-child(8) {
+      animation-delay: -0.288s;
+  }
+  .lds-roller div:nth-child(8):after {
+      top: 56px;
+      left: 12px;
+  }
+  @keyframes lds-roller {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }
+</style>
+
+<div class="apply-finance-wrapper">
+    
+    <!-- Section: Hero Banner 1 -->
+    <section class="page-row-hero-banner" style="background-image: url({{ 'apply-finance-v2-hero-1.jpg' | asset_url }}); background-position: center top -220px;">
+        <div class="hero-overlay-filter"></div>
+        <div class="page-col-hero-banner">
+            <h1>
+                Apply for up to $100K
+            </h1>
+            <h2>
+                in under 3 minutes ...
+            </h2>
+            <div class="hero-quote">
+                <div class="quote-marks"></div>
+                When we started Hatter, we didn’t have cashflow to 
+                get things outright. Flexikitch offers flexibility 
+                which gave my business options. From starting with 
+                1 product, we’ve now got 15-20. Flexikitch reminds 
+                me of how I run my business, like a family.
+                <p class="hero-customer">
+                    Vinnie, Founder, Hatter & the Hare, Bayswater VIC
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="banner-slider-btn-wrapper" style="opacity: 0;">
+        <div class="banner-slider-container">
+            <div class="banner-slider-container-col">
+                <div class="banner-slider-btn-container">
+                    <button class="banner-slider-btn slider-btn-active"></button>
+                    <button class="banner-slider-btn"></button>
+                    <button class="banner-slider-btn"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-container">
+
+        <button class="finance-calculator-btn"><i class="fas fa-calculator" style="margin-right: 10px;"></i>See Finance Calculator</button>
+
+        <!-- Section: Finance Calculator -->
+        <section class="finance-calculator-wrapper">
+            <p class="copy-heading" style="color: var(--green);">Finance Calculator</p>
+            <button class="close-finance-calculator"></button>
+            <div class="dial-container">
+                <div class="dial-line"></div>
+                <div class="dial-knob"></div>
+            </div>
+            <div class="figures-container">
+                <div class="calc-input-wrapper">
+                    <label>Capital Amount.</label>
+                    <p>$</p>
+                    <input id="financialCalcCapitalInput" type="number" value="0" />
+                </div>
+                <div class="calc-input-wrapper">
+                    <label>Weekly Rental Amount.</label>
+                    <p>$</p>
+                    <input id="financialCalcRentalInput" type="number" value="0" readonly />
+                </div>
+                <div class="calc-input-wrapper" style="display: none;">
+                    <label>Finance Product</label>
+                    <select>
+                        <option vlaue="">Flexi-Scale</option>
+                        <option vlaue="">Flexi-Tier</option>
+                        <option vlaue="">Flexi-Own</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Application Form, How it Works and Key Points -->
+        <section class="page-row">
+            <div class="page-col">
+                
+                <div class="key-points-wrapper">
+                    
+                    <div class="key-point-wrapper">
+                        <div class="key-point-icon-container" style="background-image: url({{ 'apply-finance-v2-arrow-up.svg' | asset_url }})"></div>
+                        <p class="copy-heading key-point-copy">
+                            Elevate your business with seamless hospitality equipment funding.
+                        </p>
+                    </div>
+
+                    <div class="key-point-wrapper">
+                        <div class="key-point-icon-container" style="background-image: url({{ 'apply-finance-v2-padlock.svg' | asset_url }})"></div>
+                        <p class="copy-heading key-point-copy">
+                            Unlock flexible finance options with quick, efficient turnaround.
+                        </p>
+                    </div>
+
+                    <div class="key-point-wrapper">
+                        <div class="key-point-icon-container" style="background-image: url({{ 'apply-finance-v2-checkmark.svg' | asset_url }})"></div>
+                        <p class="copy-heading key-point-copy">
+                            Discover why thousands of hospitality businesses choose Flexikitch.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="how-it-works-wrapper">
+                    <div class="card-head">
+                        <h3 style="margin-left: 60px;">
+                            How it Works
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="card-point-wrapper">
+                            <div class="card-point-icon-container">
+                                <div class="card-point-icon" style="background-image: url({{ 'apply-finance-v2-mouse.svg' | asset_url }})"></div>
+                            </div>
+                            <div class="card-point-copy-container">
+                                <p class="copy-heading">
+                                    Choose your equipment
+                                </p>
+                                <p>
+                                    Our friendly experts are here to help you make informed decisions. 
+                                    Experience personalized support from our dedicated team at Flexikitch. 
+                                    Your success is our priority.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-point-wrapper">
+                            <div class="card-point-icon-container">
+                                <div class="card-point-icon" style="background-image: url({{ 'apply-finance-v2-money-hand.svg' | asset_url }})"></div>
+                            </div>
+                            <div class="card-point-copy-container">
+                                <p class="copy-heading">
+                                    Apply for finance
+                                </p>
+                                <p>
+                                    Our rent-to-own model has a 12 month minimum term, after that 
+                                    you can purchase at any time or continue to rent. After 3 years 
+                                    you own the equipment outright.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="card-point-wrapper">
+                            <div class="card-point-icon-container">
+                                <div class="card-point-icon" style="background-image: url({{ 'apply-finance-v2-checkmark.svg' | asset_url }})"></div>
+                            </div>
+                            <div class="card-point-copy-container">
+                                <p class="copy-heading">
+                                    You’re ready for business!
+                                </p>
+                                <p>
+                                    As soon as your financing is approved, we get to work on ensuring a 
+                                    smooth transition for you. Our experienced team promptly delivers 
+                                    and professionally installs your selected equipment, eliminating any 
+                                    potential stress or downtime.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="page-col">
+                <div class="application-wrapper">
+                    <form>
+                        <div class="page page-1">
+                            <div class="current-step-inidcator-wrapper">
+                                <div class="current-indicator-line"></div>
+                                <div class="step-wrapper">
+                                    <div class="step-circle step-completed"></div>
+                                    <p class="step-copy">START</p>
+                                </div>
+                                <div class="step-wrapper" style="margin-left: calc(50% - 60px); transform: translateX(-50%);">
+                                    <div class="step-circle step-active"></div>
+                                    <div class="step-pointer"></div>
+                                    <p class="step-copy step-copy-active">STEP 1</p>
+                                </div>
+                                <div class="step-wrapper" style="float: right;">
+                                    <div class="step-circle"></div>
+                                    <p class="step-copy">STEP 2</p>
+                                </div>
+                            </div>
+                            <p class="application-chaser" style="margin-top: 50px;">You’re less than 3 minutes away from financing your dream.</p>
+                            <p class="application-chaser step" style="margin-top: 25px;">Step 1 of 2</p>
+                            <div class="input-wrapper">
+                                <label>Full Name</label>
+                                <input id="name" type="text" autofocus />
+                                <div class="input-error">Please include your Full Name</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Email Address</label>
+                                <input id="email" type="text" />
+                                <div class="input-error">Please include your Email Address</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Registered Business Name</label>
+                                <input id="businessName" type="text" />
+                                <div class="input-error">Please include your Business Name</div>
+                            </div>
+                            <button class="next-btn">Next Step<i class="fas fa-arrow-right" style="padding-left: 15px;"></i></button>
+                            <p class="terms" style="display: none;">
+                                Terms and Conditions: Is ut omnimillupta nempores aspe lis ea 
+                                nimus eum veris volorum cum con non et, cuptatecus dolupta nihille 
+                                sequos nusandaest optis il modiatur repelen duscidis et mossect 
+                                aectiae parchicime.
+                            </p>
+                        </div>
+                        <div class="page page-2">
+                            <div class="current-step-inidcator-wrapper">
+                                <div class="current-indicator-line"></div>
+                                <div class="step-wrapper">
+                                    <div class="step-circle step-completed"></div>
+                                    <p class="step-copy">START</p>
+                                </div>
+                                <div class="step-wrapper" style="margin-left: calc(50% - 60px); transform: translateX(-50%);">
+                                    <div class="step-circle step-completed"></div>
+                                    <p class="step-copy">STEP 1</p>
+                                </div>
+                                <div class="step-wrapper" style="float: right;">
+                                    <div class="step-circle step-active"></div>
+                                    <div class="step-pointer"></div>
+                                    <p class="step-copy step-copy-active">STEP 2</p>
+                                </div>
+                            </div>
+                            <p class="application-chaser" style="margin-top: 50px;">You’re less than 3 minutes away from financing your dream.</p>
+                            <p class="application-chaser step" style="margin-top: 25px;">Step 2 of 2</p>
+                            <div class="input-wrapper">
+                                <label>ABN or ACN</label>
+                                <input id="abn" type="text" />
+                                <div class="input-error">Please include your ABN or ACN</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Phone Number</label>
+                                <input id="phone" type="text" />
+                                <div class="input-error">Please include your Phone Number</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Business Category</label>
+                                <select id="category">
+                                    <option value="" selected>Select Business Category</option>
+                                    <option value="cafe">Cafe</option>
+                                    <option value="restaurant">Restaurant</option>
+                                    <option value="bar">Bar</option>
+                                    <option value="bakery">Bakery</option>
+                                    <option value="hotel">Hotel</option>
+                                    <option value="catering">Catering</option>
+                                    <option value="food-truck">Food Truck</option>
+                                    <option value="grocery">Grocery Store</option>
+                                    <option value="pub">Pub</option>
+                                    <option value="nightclub">Nightclub</option>
+                                    <option value="coffee-shop">Coffee Shop</option>
+                                    <option value="ice-cream-parlor">Ice Cream Parlor</option>
+                                    <option value="pizzeria">Pizzeria</option>
+                                    <option value="deli">Deli</option>
+                                    <option value="fast-food">Fast Food</option>
+                                    <option value="buffet">Buffet</option>
+                                    <option value="food-court">Food Court</option>
+                                    <option value="brewery">Brewery</option>
+                                    <option value="winery">Winery</option>
+                                    <option value="food-service-provider">Food Service Provider</option>
+                                    <option value="pop-up-restaurant">Pop-up Restaurant</option>
+                                    <option value="sushi-bar">Sushi Bar</option>
+                                    <option value="vegetarian-vegan-restaurant">Vegetarian/Vegan Restaurant</option>
+                                    <option value="juice-bar">Juice Bar</option>
+                                    <option value="fine-dining">Fine Dining</option>
+                                    <option value="family-restaurant">Family Restaurant</option>
+                                    <option value="seafood-restaurant">Seafood Restaurant</option>
+                                    <option value="steakhouse">Steakhouse</option>
+                                    <option value="pub">Pub</option>
+                                    <option value="gastropub">Gastropub</option>
+                                    <option value="tapas-bar">Tapas Bar</option>
+                                    <option value="dessert-shop">Dessert Shop</option>
+                                    <option value="wine-bar">Wine Bar</option>
+                                    <option value="food-market">Food Market</option>
+                                    <option value="cheese-shop">Cheese Shop</option>
+                                    <option value="butcher-shop">Butcher Shop</option>
+                                    <option value="fish-market">Fish Market</option>
+                                    <option value="bakery">Bakery</option>
+                                    <option value="chocolatier">Chocolatier</option>
+                                    <option value="brewpub">Brewpub</option>
+                                    <option value="tearoom">Tearoom</option>
+                                    <option value="diner">Diner</option>
+                                    <option value="food-trailer">Food Trailer</option>
+                                    <option value="artisan-food-producer">Artisan Food Producer</option>
+                                    <option value="organic-food-store">Organic Food Store</option>
+                                    <option value="street-food-vendor">Street Food Vendor</option>
+                                </select>
+                                <div class="input-error">Please select a Business Category</div>
+                            </div>
+                            <div class="input-wrapper">
+                                <label>Projected Finance Amount</label>
+                                <select id="financeAmount">
+                                    <option value="" selected>Select Projected Finance Amount</option>
+                                    <option value="lessThan10K">Less than 10K</option>
+                                    <option value="10K">10K</option>
+                                    <option value="25K">25K</option>
+                                    <option value="50K">50K</option>
+                                    <option value="75K">75K</option>
+                                    <option value="100K">100K Plus</option>
+                                </select>
+                                <div class="input-error">Please select an Amount</div>
+                            </div>
+                            <button class="prev-btn"><i class="fas fa-arrow-left"></i></button>
+                            <button class="submit-btn">Submit<i class="fas fa-arrow-right" style="padding-left: 15px;"></i></button>
+                            <p class="terms" style="display: none;">
+                                Terms and Conditions: Is ut omnimillupta nempores aspe lis ea 
+                                nimus eum veris volorum cum con non et, cuptatecus dolupta nihille 
+                                sequos nusandaest optis il modiatur repelen duscidis et mossect 
+                                aectiae parchicime.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <h3 class="new-page-section">Our Equipment Range</h3>
+    <div class="page-container">
+
+        <!-- Section: Our Equipment Range and Equipment Categories Information -->
+        <section class="page-row">
+            <div class="page-col">
+                <div class="our-equipment-wrapper">
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-refrigeration.svg' | asset_url }})">
+                        <p>Refrigeration</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-display.svg' | asset_url }})">
+                        <p>Display</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-warewashing.svg' | asset_url }})">
+                        <p>Warewashing</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-applicances.svg' | asset_url }})">
+                        <p>Appliances</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-cooking.svg' | asset_url }})">
+                        <p>Cooking</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-coffee.svg' | asset_url }})">
+                        <p>Coffee</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-combi.svg' | asset_url }})">
+                        <p>Combi Ovens</p>
+                    </div>
+                    <div class="equipment-icon" style="background-image: url({{ 'apply-finance-v2-island-display.svg' | asset_url }})">
+                        <p>Island Display</p>
+                    </div>
+                </div>
+            </div>
+            <div class="page-col">
+                <div class="key-collections-wrapper">
+                    <div class="card-body">
+                        
+                        <div class="collection-wrapper">
+                            <div class="collection-head">
+                                <div class="tick-icon"></div>
+                                <p class="copy-heading">Commercial Fryers</p>
+                                <div class="expand-icon"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collection-body">
+                                <p>
+                                    French fries, fried chicken, tempura, donuts – all of these delicious 
+                                    treats require one important kitchen tool: a commercial deep fryer. 
+                                    But with so many options on the market, how do you choose the best 
+                                    commercial deep fryer for your restaurant or food business?
+                                </p>
+                                <p>
+                                    Now, purchasing a commercial deep fryer can be tricky - you need to 
+                                    consider size, capacity, and even features like temperature control 
+                                    and oil filtration systems.
+                                </p>
+                                <p>
+                                    It's also a hefty investment, so you want to ensure you're getting the 
+                                    best commercial deep fryer for your money.
+                                </p>
+                                <p>
+                                    At Flexikitch, we offer commercial deep fryers that tick all the boxes – 
+                                    sturdy construction, efficient heating elements, and even bonus features 
+                                    like a built-in filtration system to extend the life of your frying oil. 
+                                    Our thorough testing and quality checks ensure that we only offer the best 
+                                    commercial deep fryers to our customers.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Twin Pan Deep Fryer for Your Restaurant</span><br>
+                                    Our focus on quality and efficiency extends to all of our commercial kitchen equipment, 
+                                    including our popular Twin Pan Deep Fryer. This fryer can effortlessly handle high volumes 
+                                    with its two large frying baskets, perfect for busy restaurants and food businesses. A twin 
+                                    pan gas deep fryer also allows for frying two different types of food at once.
+                                </p>
+                                <p>
+                                    We’ve got a range of:
+                                </p>
+                                <ul>
+                                    <li>Single & Multi Pan Bench Top Fryers</li>
+                                    <li>Single & Multi Pan Fryers</li>
+                                    <li>Fish Fryers</li>
+                                    <li>Fryers with Filtration</li>
+                                </ul>
+                                <p>
+                                    A wide selection of temperature settings allows for maximum versatility, while the built-in 
+                                    oil filtration system ensures that your frying oil lasts longer so you'll save money on 
+                                    replacing your oil. You can even detach the frying baskets for easy cleaning.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Buy Commercial Deep Fryer Online</span><br>
+                                    Your restaurant deserves the best commercial deep fryer to make delicious treats and memories 
+                                    for your customers. 
+                                </p>
+                                <p>
+                                    Take a look at our commercial deep fryers online and find the perfect fit for your kitchen. 
+                                    Trust us, your taste buds (and wallet) will thank you. Get in touch with us for more information.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="collection-wrapper">
+                            <div class="collection-head">
+                                <div class="tick-icon"></div>
+                                <p class="copy-heading">Refrigeration</p>
+                                <div class="expand-icon"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collection-body">
+                                <p>
+                                    <span style="color: var(--primary-color);">Commercial Refrigeration Equipment</span><br>
+                                    Commercial refrigeration equipment is a must-have for any restaurant 
+                                    or catering business. Keeping food cool and within food safety guidelines 
+                                    is imperative and at Flexikitch we have the best range of commercial 
+                                    refrigeration equipment in Australia. We know how important restaurant 
+                                    refrigeration is which is exactly why we offer only the best quality 
+                                    commercial refrigeration solutions on the market. 
+                                </p>
+                                <p>
+                                    Plus we stock all the best brands in the market like Williams, Festive York, 
+                                    SCOPE, AusTune and more.
+                                </p>
+                                <p>
+                                    Our refrigeration equipment is some of the best in the business, if you’ve 
+                                    been wondering where to buy commercial refrigeration units, you’ve come to 
+                                    the right place! 
+                                </p>
+                                <p>
+                                    From walk-in coolers to undercounter refrigerators, we've got everything 
+                                    you need to keep your food fresh and your customers happy.
+                                </p>
+                                <p>
+                                    We offer top-quality commercial refrigeration equipment that will perform 
+                                    day in and day out.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Commercial Refrigeration in Melbourne</span><br>
+                                    The restaurant and catering industry in Melbourne is thriving and at Flexikitch, 
+                                    our goal is to support you in every aspect of your day-to-day operations. We 
+                                    have all the best restaurant refrigeration solutions to suit every unique situation. 
+                                </p>
+                                <p>
+                                    Having durable, reliable refrigeration equipment is a great place to start.
+                                    Trust us, we've seen it time and time again. Some of the top tier restaurants 
+                                    with the best food can be affected by subpar refrigeration equipment.
+                                </p>
+                                <p>
+                                    At Flexikitch, our thorough vetting process means we only stock the best 
+                                    commercial refrigeration equipment in the market.
+                                </p>
+                                <p>
+                                    We know that getting into a store when you run a business can be a challenge 
+                                    in itself which is exactly why we have an option to buy commercial fridge online, 
+                                    saving you valuable time!
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Our online store has so many options including;</span>
+                                </p>
+                                <ul>
+                                    <li>Bar refrigeration</li>
+                                    <li>Blast Chillers & Freezers</li>
+                                    <li>Chest Freezers</li>
+                                    <li>Dry Ageing Refrigeration</li>
+                                    <li>Ice Makers</li>
+                                    <li>Medical Fridges</li>
+                                    <li>Wine Fridges and more..</li>
+                                </ul>
+                                <p>
+                                    We have a range of new and ex-rental commercial refrigeration equipment available 
+                                    and we can help you to find the right finance solutions for your needs.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Hire or Buy Commercial Refrigeration Solutions</span><br>
+                                    Check out our selection of commercial refrigerators for sale or hire at Flexikitch. 
+                                    We can also extend service cover for the lifetime of your rental contract so you have 
+                                    peace of mind that our team is supporting you through every aspect of your operations. 
+                                </p>
+                                <p>
+                                    Visit our website or give us a call to learn more about our commercial refrigeration 
+                                    equipment and offers available. If you want to expand your business and experience 
+                                    the best restaurant refrigeration solutions on offer, our expert team can provide 
+                                    advice and support to take you to the next level. Contact us today!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="collection-wrapper">
+                            <div class="collection-head">
+                                <div class="tick-icon"></div>
+                                <p class="copy-heading">Combi Ovens</p>
+                                <div class="expand-icon"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collection-body">
+                                <p>
+                                    <span style="color: var(--primary-color);">Commercial Combi Ovens</span><br>
+                                    You know what they say about a jack of all trades. Well, a combi oven is the jack of 
+                                    all trades in the commercial kitchen world. These powerhouse ovens can steam, bake, 
+                                    roast, and even reheat all in one compact package.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Why should you add a combi oven to your kitchen?</span><br>
+                                    Aside from its versatility, combi ovens can also save precious kitchen space and 
+                                    reduce energy consumption. Plus, they come in a range of sizes to fit any kitchen 
+                                    layout. Finding the right combi oven for your restaurant is easy - Flexikitch has 
+                                    you covered with our extensive range of commercial combi ovens for sale online.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">We have an outstanding range of:</span>
+                                </p>
+                                <ul>
+                                    <li>Combi Ovens & Stands</li>
+                                    <li>Combi Oven Exhaust Hoods</li>
+                                    <li>Combi Oven Smokers</li>
+                                    <li>Combi Oven Trolleys & Accessories</li>
+                                    <li>Combi Oven Filtration</li>
+                                    <li>Plus, our team of experts thoroughly test all of the equipment we sell to ensure 
+                                    it meets our exceptionally high standards.</li>
+                                </ul>
+                                <p>
+                                    Combi Microwave Oven or Combi Steam Oven? Combi microwave ovens use both traditional 
+                                    heating elements and microwaves for faster cooking, while combi steam ovens use 
+                                    primarily steam to cook.
+                                    Both offer their own advantages, so it really just depends on your specific kitchen 
+                                    needs. Whatever you decide, Flexikitch has got you covered with our wide selection of 
+                                    commercial combi ovens for sale in Australia.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Find the Best Combi Oven for Your Kitchen at Flexikitch</span><br>
+                                    Ready to add a combi oven to your kitchen? Browse our huge range of commercial combi 
+                                    ovens and find the perfect fit for your restaurant. Our team is also here to help with 
+                                    any questions or concerns you may have about purchasing any of our kitchen equipment.
+                                </p>
+                                <p>
+                                    Our expert team can provide advice and support on all aspects of purchasing your 
+                                    commercial coffee grinder online. We also have flexible finance options available 
+                                    if you want to purchase now and own outright in 3 years time. Contact us today!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="collection-wrapper">
+                            <div class="collection-head">
+                                <div class="tick-icon"></div>
+                                <p class="copy-heading">Coffee Machines</p>
+                                <div class="expand-icon"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collection-body">
+                                <p>
+                                    <span style="color: var(--primary-color);">Buy or Hire Commercial Coffee Machines</span><br>
+                                    The smell of freshly brewed coffee draws customers into your café. It’s 
+                                    the sweet smell of kick starting your day! Espresso, macchiato, cappuccino, 
+                                    flat white – your customers have different tastes, and you need a commercial 
+                                    coffee machine that can handle them all.
+                                </p>
+                                <p>
+                                    At Flexikitch, we have the best commercial coffee machines for sale or rent – 
+                                    machines that can whip up a variety of coffee styles with ease and reliability.
+                                </p>
+                                <p>
+                                    Get the best commercial coffee machines from Flexikitch, and give your customers 
+                                    the delicious caffeinated treats they want.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">The Best Range of Commercial Coffee Machines Australia</span><br>
+                                    Australians love their coffee. It's the perfect pick-me-up during busy mornings 
+                                    and a necessary break during long afternoons. But serving up delicious cups of 
+                                    joe requires the right commercial coffee machines.
+                                </p>
+                                <p>
+                                    At Flexikitch, we have a wide range of commercial coffee machines for sale – 
+                                    from small single-serve models to multi-functional ones that can handle all kinds 
+                                    of drinks.
+                                </p>
+                                <p>
+                                    We have the full range of CREM, Mavam, Kees Van Der Westen and Wega machines plus 
+                                    many more trusted, reliable brands. Whatever you need to keep your customers happy, 
+                                    we’ve got it in stock!  
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Commercial Coffee Machine for Sale or Lease</span><br>
+                                    Investing in the best commercial coffee machine can be a daunting task. You also 
+                                    need to figure out the financing – is it better to buy or lease?
+                                </p>
+                                <p>
+                                    At Flexikitch, we make the process easy for you. Our commercial coffee machines 
+                                    for sale are top-notch and affordable, and we offer flexible financing options 
+                                    to suit your needs.
+                                </p>
+                                <p>
+                                    Trust Flexikitch to provide the best commercial coffee machine for your business. 
+                                    We are fast and efficient with delivery, plus we can work with you on any issues 
+                                    that arise to keep your stress to a minimum and business operational. Our expert 
+                                    team can provide advice and support to take you to the next level. Contact us today!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="collection-wrapper">
+                            <div class="collection-head">
+                                <div class="tick-icon"></div>
+                                <p class="copy-heading">Benchtop Appliances</p>
+                                <div class="expand-icon"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collection-body">
+                                <p>
+                                    <span style="color: var(--primary-color);">Buy Commercial Benchtop Equipment at Flexikitch</span><br>
+                                    Are you in need of top-notch commercial benchtop equipment to elevate your 
+                                    commercial kitchen space? Look no further than our experienced team at Flexikitch! 
+                                    We are your one-stop destination for a wide range of high-quality commercial cooking 
+                                    equipment available to buy online including an extensive range of benchtop equipment, 
+                                    providing flexible solutions tailored to your unique needs.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Rent to Buy Commercial Benchtop Equipment from Flexikitch?</span><br>
+                                    At Flexikitch, we understand that every business has its own budgetary constraints 
+                                    and operational requirements. That's why we offer a versatile selection of commercial 
+                                    benchtop equipment, from ovens and benchtop deep fryers to ice cream displays, 
+                                    refrigeration equipment and everything in between, available for short-term rentals 
+                                    or long-term lease to buy options.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Benefits of Renting to Buy Commercial Cooking Equipment:</span><br>
+                                    Cost-Effective: 
+                                    Renting commercial cooking equipment like our commercial benchtop equipment allows 
+                                    you to conserve your capital, especially if you are just starting or experiencing 
+                                    seasonal fluctuations. Enjoy access to premium-grade benchtop kitchen equipment like 
+                                    benchtop burners, benchtop griddles, benchtop toasters and more without the upfront costs.
+                                </p>
+                                <p>
+                                    Flexibility: 
+                                    Our rental plans are designed to cater to your unique and specific business needs. 
+                                    You can easily adjust the equipment based on changing demand or upgrade to the latest 
+                                    models effortlessly.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Lease to Buy Commercial Benchtop Equipment:</span><br>
+                                    If you have long-term plans for your business, our "Lease to Buy" option is the perfect 
+                                    fit. Get started with a lease and, if you decide to purchase the equipment during or at 
+                                    the end of the lease term, a portion of the rental payments can be applied as credit 
+                                    toward the purchase price.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Experience the Flexikitch Difference For Yourself!</span><br>
+                                    At Flexikitch, we take pride in offering not just top-notch commercial cooking equipment 
+                                    and commercial benchtop equipment, but also unparalleled customer service. Our team of 
+                                    experts is ready to guide you through the selection process, helping you find the perfect 
+                                    equipment to suit your needs and budget.
+                                </p>
+                                <p>
+                                    Ready to take your business to the next level? Whether you're looking to buy, rent or 
+                                    rent to buy commercial cooking equipment, or explore various other options, Flexikitch 
+                                    is your trusted partner in success. Discover the freedom of choice with Flexikitch today!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="collection-wrapper">
+                            <div class="collection-head">
+                                <div class="tick-icon"></div>
+                                <p class="copy-heading">Ex-rental</p>
+                                <div class="expand-icon"><i class="fas fa-plus"></i></div>
+                            </div>
+                            <div class="collection-body">
+                                <p>
+                                    Looking to upgrade your commercial kitchen or just starting out?
+                                </p>
+                                <p>
+                                    Not sure where to find second-hand commercial kitchen equipment in Australia?
+                                </p>
+                                <p>
+                                    Setting up a new commercial kitchen can be expensive. Your expenses can quickly 
+                                    add up with brand new equipment when you factor in delivery fees and installation 
+                                    costs.
+                                </p>
+                                <p>
+                                    But why not buy second-hand or liquidation stock instead?
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Ex Rental & Clearance Commercial Kitchen Stock</span><br>
+                                    At Flexikitch, we have a broad range of second-hand commercial kitchen equipment 
+                                    available for purchase at a fraction of the cost.
+                                </p>
+                                <p>
+                                    Every second-hand item is thoroughly inspected and tested rigorously so you can 
+                                    rest assured that it will function just like new. We stand by the quality of all 
+                                    our products and this includes all ex-rental, clearance and floorstock.
+                                </p>
+                                <p>
+                                    You can trust us with all your second-hand commercial kitchen equipment needs. 
+                                    Browse through our range and find the perfect addition for your kitchen today.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Small Appliances</span><br>
+                                    Every kitchen needs the basics. Coffee machines, blenders, mixers, and toasters 
+                                    add convenience to your kitchen and make the daily grind an easy one!
+                                </p>
+                                <p>
+                                    At Flexikitch we can work with any kind of budget and you can easily save thousands 
+                                    of dollars on second-hand small appliances, allowing you to invest your budget into 
+                                    bigger equipment or other aspects of your commercial kitchen business.
+                                </p>
+                                <p>
+                                    Don’t miss out on our current deals and promotions for used small appliances, 
+                                    which are updated regularly on our website.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Larger Appliances</span><br>
+                                    Larger equipment like fridges, freezers, ovens and display cabinets can be quite 
+                                    expensive, particularly when it comes to commercial kitchen equipment. But they're 
+                                    also crucial for any commercial kitchen operation. You can’t afford to skimp on 
+                                    quality and functionality regarding your kitchen equipment and food safety.
+                                </p>
+                                <p>
+                                    At Flexikitch, we offer second-hand, ex rental and clearance commercial kitchen 
+                                    equipment that delivers quality and affordability.
+                                </p>
+                                <p>
+                                    <span style="color: var(--primary-color);">Our range includes:</span>
+                                </p>
+                                <ul>
+                                    <li>Upright freezers</li>
+                                    <li>Used refrigerators</li>
+                                    <li>Deli cases</li>
+                                    <li>Coffee Machines</li>
+                                    <li>Two & three door chillers</li>
+                                    <li>Gas griddles</li>
+                                    <li>Deep fryers and more</li>
+                                </ul>
+                                <p>
+                                    Don’t sacrifice the quality of your kitchen operations - browse through our range 
+                                    of used large equipment today and find the perfect addition for your kitchen at a 
+                                    fraction of the cost.
+                                </p>
+                                <p>
+                                    We also offer affordable delivery options so there’s no reason not to upgrade your 
+                                    kitchen with Flexikitch’s range of used commercial kitchen equipment today. Trust 
+                                    us for quality and affordability, delivered right to your doorstep. Contact the 
+                                    team today.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Our Partners -->
+        <section class="page-row">
+            <div class="page-col">
+                <div class="our-partners-wrapper">
+                    <div class="partner-logo" style="background-image: url({{ 'apply-finance-v2-logo-skope.jpg' | asset_url }});"></div>
+                    <div class="partner-logo" style="background-image: url({{ 'apply-finance-v2-logo-luus.jpg' | asset_url }});"></div>
+                    <div class="partner-logo" style="background-image: url({{ 'apply-finance-v2-logo-middleby.jpg' | asset_url }});"></div>
+                    <div class="partner-logo" style="background-image: url({{ 'apply-finance-v2-logo-hobart.jpg' | asset_url }});"></div>
+                    <div class="partner-logo" style="background-image: url({{ 'apply-finance-v2-logo-stoddarts.jpg' | asset_url }});"></div>
+                    <div class="partner-logo" style="background-image: url({{ 'apply-finance-v2-logo-unox.jpg' | asset_url }});"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+        
+    <h3 class="new-page-section">Frequently Asked Questions</h3>
+    <div class="page-container">
+
+        <!-- Section: FAQ's -->
+        <section class="page-row">
+            <div class="page-col">
+                <div class="faq-wrapper">
+                    
+                    <div class="faq-container">
+                        <div class="faq-head">
+                            <p class="copy-heading">What is the minimum rental period</p>
+                            <div class="expand-icon faq-expand-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-body">
+                            <p>
+                                Flexikitch hospitality equipment finance works with a 12-month minimum term. 
+                                After that time, you can continue to rent, and after 3 years of continuous 
+                                rental you will own the kitchen equipment you’ve rented from us, outright.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-container">
+                        <div class="faq-head">
+                            <p class="copy-heading">What equipment can I finance</p>
+                            <div class="expand-icon faq-expand-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-body">
+                            <p>
+                                Our commercial kitchen equipment finance applies to products that 
+                                are serialised within the hospitality industry, and have an invoice 
+                                value above $3,000. We may limit our standard inclusions for specialised 
+                                and/or high value appliances. Talk to our friendly team to find the right 
+                                option for your needs. 
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-container">
+                        <div class="faq-head">
+                            <p class="copy-heading">Can I change equipment at any time</p>
+                            <div class="expand-icon faq-expand-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-body">
+                            <p>
+                                Yes, you can upgrade or downgrade equipment at any time, 
+                                allowing you the flexibility to grow your business.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-container">
+                        <div class="faq-head">
+                            <p class="copy-heading">What happens if equipment breaks down</p>
+                            <div class="expand-icon faq-expand-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-body">
+                            <p>
+                                We provide all Flexikitch Rentals with ongoing breakdown service 
+                                cover for the lifetime of the contract and beyond. It’s vital to us 
+                                that you have a seamless experience, and that is why we have decided 
+                                to extend service cover past the manufacturer’s warranty for the 
+                                lifetime of rental. We endeavour to give you total peace of mind 
+                                when you take out a restaurant equipment financing agreement with us, 
+                                helping you to keep the focus on your business. 
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-container">
+                        <div class="faq-head">
+                            <p class="copy-heading">How do i get started</p>
+                            <div class="expand-icon faq-expand-icon"><i class="fas fa-plus"></i></div>
+                        </div>
+                        <div class="faq-body">
+                            <p>
+                                Complete a Flexikitch finance application form and a friendly member 
+                                from our sales team will get in touch with you. Alternatively, find 
+                                out about our pre-approval on finance for equipment up to $20 000 or 
+                                contact us on 1300 769 161.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<div id="financeSubmitLoader" style="display: none;" class="apply-finance-modal-loader">
+    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+
+<div id="financeSubmitModal" style="display: none;" class="apply-finance-modal-wrapper">
+    <div class="apply-finance-modal-container">
+        <p>
+            Your application has been received and you are now one step
+            closer to realizing your dream. One of our friendly team
+            members will be in touch shortly.
+        </p>
+        <button id="closeModalBtn" class="apply-finance-btn">Close</button>
+    </div>
+</div>
+
+<script>
+document.onreadystatechange = function() {
+    if("complete" === document.readyState) { 
+        $dialKnob = $('.dial-knob');
+        $dialContainer = $('.dial-container');
+        $('form').on('submit', function(event) {
+            event.preventDefault();
+        });
+        $('.finance-calculator-btn').on('click', function() {
+            openFinanceCalculator();
+        });
+        $('.close-finance-calculator').on('click', function() {
+            closeFinanceCalculator();
+        });
+        $dialKnob.on('mousedown', function(e) {
+            isDragging = true;
+            containerWidth = $dialContainer.width();
+            knobWidth = $dialKnob.width();
+            containerOffset = $dialContainer.offset().left;
+            $(document).on('mousemove', updateKnobPosition);
+            $(document).on('mouseup', stopDragging);
+        });
+        $('#financialCalcCapitalInput').on('input', function() {
+            const capitalValue = parseFloat($(this).val()) || 0;
+            if(capitalValue <= rentalCapitalMax){
+                updateFromCapital(capitalValue);
+            } else {
+                $(this).val(rentalCapitalMax);
+                updateFromCapital(rentalCapitalMax);
+            }
+        });
+        $('.next-btn').on('click', function() {
+            validateStep1();
+            goToStep();
+        });
+        $('.prev-btn').on('click', function() {
+            step = 1;
+            goToStep();
+        });
+        $('.submit-btn').on('click', function() { 
+            validateStep2();
+            submitForm();
+        });
+        $('#closeModalBtn').on('click', function() { 
+            $('#financeSubmitModal').hide();
+            resetForm();
+            goToStep();
+        });
+        $('.faq-head').on('click', function() { 
+            const faqBody = $(this).next();
+            if(faqBody.is(':visible')) {
+                faqBody.slideUp();
+            } else {
+                faqBody.slideDown();
+            }
+        });
+        $('.collection-head').on('click', function() { 
+            const collectionBody = $(this).next();
+            if(collectionBody.is(':visible')) {
+                collectionBody.slideUp();
+            } else {
+                collectionBody.slideDown();
+            }
+        });
+    } 
+}
+
+// Finance Calculator
+let isDragging = false;
+let containerWidth, knobWidth, containerOffset;
+let $dialKnob = null;
+let $dialContainer = null;
+
+const rentalConversion = 0.0545;
+const rentalCapitalMax = 100000;
+
+// Application Form
+let valid = true;
+let step = 1;
+let name = '';
+let email = '';
+let businessName = '';
+let abn = '';
+let phone = '';
+let category = '';
+let financeAmount = '';
+
+// Finance Calculator
+function openFinanceCalculator() {
+    const financeCalculatorDiv = $('.finance-calculator-wrapper');
+    financeCalculatorDiv.addClass('active');
+}
+function closeFinanceCalculator() { 
+    const financeCalculatorDiv = $('.finance-calculator-wrapper');
+    financeCalculatorDiv.removeClass('active');
+}
+function updateKnobPosition(e) {
+    if (!isDragging) return;
+    let knobPosition = e.pageX - containerOffset - (knobWidth / 2);
+    knobPosition = Math.max(0, Math.min(knobPosition, containerWidth - knobWidth));
+    $dialKnob.css('left', knobPosition + 'px');
+    const percentage = (knobPosition / (containerWidth - knobWidth)) * 100;
+    calcWeeklyRental(percentage);
+    calcCapital(percentage);
+}
+function stopDragging() {
+    isDragging = false;
+    $(document).off('mousemove', updateKnobPosition);
+    $(document).off('mouseup', stopDragging);
+}
+function calcWeeklyRental(percentage) {
+    const weeklyRentalInput = $('#financialCalcRentalInput');
+    const capital = Math.round((percentage / 100) * rentalCapitalMax);
+    const weeklyRental = Math.round((capital * rentalConversion) / 4.33);
+    weeklyRentalInput.val(weeklyRental);
+}
+function calcCapital(percentage) {
+    const capitalInput = $('#financialCalcCapitalInput');
+    const capital = Math.round((percentage / 100) * rentalCapitalMax);
+    capitalInput.val(capital);
+}
+function updateFromCapital(capitalValue) {
+    const percentage = (capitalValue / rentalCapitalMax) * 100;
+    const knobPosition = ((containerWidth - knobWidth) * percentage) / 100;
+    $dialKnob.css('left', knobPosition + 'px');
+    const weeklyRentalValue = Math.round(capitalValue * rentalConversion);
+    $('#financialCalcRentalInput').val(weeklyRentalValue);
+    $('#financialCalcCapitalInput').val(capitalValue);
+}
+
+// Application Form
+function validateStep1() {
+    name = $('#name').val();
+    email = $('#email').val();
+    businessName = $('#businessName').val();
+    valid = true;
+    step = 2;
+    $('.input-error').hide();
+    if(name.trim() == '') {
+        valid = false;
+        step = 1;
+        $('.input-error').eq(0).show();
+    } 
+    if(email.trim() == '') {
+        valid = false;
+        step = 1;
+        $('.input-error').eq(1).show();
+    }
+    if(businessName.trim() == '') {
+        valid = false;
+        step = 1;
+        $('.input-error').eq(2).show();
+    }
+}
+function validateStep2() {
+    abn = $('#abn').val();
+    phone = $('#phone').val();
+    category = $('#category').val();
+    financeAmount = $('#financeAmount').val();
+    valid = true;
+    $('.input-error').hide();
+    if(abn.trim() == '') {
+        valid = false;
+        $('.input-error').eq(3).show();
+    } 
+    if(phone.trim() == '') {
+        valid = false;
+        $('.input-error').eq(4).show();
+    }
+    if(category.trim() == '') {
+        valid = false;
+        $('.input-error').eq(5).show();
+    }
+    if(financeAmount.trim() == '') {
+        valid = false;
+        $('.input-error').eq(6).show();
+    }
+}
+function goToStep() {
+    if(step == 1) {
+        $('.page-1').show();
+        $('.page-2').hide();
+    } else if(step == 2) {
+        $('.page-1').hide();
+        $('.page-2').show();
+    }
+}
+function submitData() {
+    if(!isValid){ return; }
+    isLoading();
+    $.ajax({
+      url: 'https://hooks.zapier.com/hooks/catch/15080142/3hg3upw/',
+      method: 'POST',
+      data: {
+        fullName: fullName,
+        emailAddress: emailAddress,
+        businessName: businessName,
+        abnOrAcn: abnOrAcn,
+        phoneNumber: phoneNumber,
+        businessCategory: businessCategory,
+        financeAmount: financeAmount
+      },
+      success: function() {
+        isNotLoading();
+        showModal();
+        $('#submitApplicationBtn').hide();
+      },
+      error: function(jqXHR, textStatus, errorThrown) {
+        alert('An ERROR has occurred. Please try again later.');
+        console.log('Error sending data');
+        if(jqXHR.status == 429) { // HTTP status 429 is returned when rate limit is exceeded
+            console.log('Rate limit exceeded. Please try again later.');
+        }
+      }
+    });
+}
+function submitForm() {
+    if(valid) {
+        $('#financeSubmitLoader').show();
+        const formData = {
+            fullName: name,
+            emailAddress: email,
+            businessName: businessName,
+            abnOrAcn: abn,
+            phoneNumber: phone,
+            businessCategory: category,
+            financeAmount: financeAmount
+        };
+        $.ajax({
+          url: 'https://hooks.zapier.com/hooks/catch/15080142/3hg3upw/',
+          method: 'POST',
+          data: formData,
+          dataType: 'json',
+          encode: true,
+          success: function() {
+            $('#financeSubmitLoader').hide();
+            $('#financeSubmitModal').show();
+            $('#submitApplicationBtn').hide();
+          },
+          error: function(jqXHR, textStatus, errorThrown) {
+            $('#financeSubmitLoader').hide();
+            alert('An ERROR has occurred. Please try again later.');
+            console.log('Error sending data');
+            if(jqXHR.status == 429) { // HTTP status 429 is returned when rate limit is exceeded
+                console.log('Rate limit exceeded. Please try again later.');
+            }
+          }
+      });
+    }   
+}
+function resetForm() {
+    $('#name').val('');
+    $('#email').val('');
+    $('#businessName').val('');
+    $('#abn').val('');
+    $('#phone').val('');
+    $('#category').val('');
+    $('#financeAmount').val('');
+    valid = true;
+    step = 1;
+    name = '';
+    email = '';
+    businessName = '';
+    abn = '';
+    phone = '';
+    category = '';
+    financeAmount = '';
+}
+</script>
